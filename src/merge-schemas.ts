@@ -1,5 +1,6 @@
 import { readFile, writeFile } from 'fs/promises';
-import { TypeInfo } from './parse-markdown';
+import { TypeInfo } from './parse-markdown.js';
+import { setProperty } from 'dot-prop';
 
 export async function mergeSchemas() {
   const additionalData: TypeInfo[] = JSON.parse(await readFile('test.result.json', 'utf8'));
@@ -8,17 +9,19 @@ export async function mergeSchemas() {
   console.log(schema);
   console.log(additionalData);
 
-  const dotProp = await import('dot-prop');
+  // const dotProp = await import('dot-prop');
 
   additionalData.forEach((data) => {
     const pathParts = data.path.split('.');
     const a = pathParts.map((part) => `properties.${part}`).join('.');
+    console.log(data.examples);
+    setProperty(schema, a + '.default', data.default);
+    setProperty(schema, a + '.description', data.description);
+    setProperty(schema, a + '.examples', data.examples);
 
-    dotProp.setProperty(schema, a + '.description', data.description);
-    dotProp.setProperty(schema, a + '.examples', data.examples);
-    dotProp.setProperty(schema, a + '.default', data.default);
+    console.log(schema);
     // dotProp.setProperty(schema, a + '.description', data.description);
   });
 
-  await writeFile('qmk_firmware/data/schemas/keyboard.schema.json', JSON.stringify(schema, undefined, 4), 'utf8');
+  await writeFile('qmk_firmware/data/schemas/keyboard.schema.json', JSON.stringify(schema), 'utf8');
 }

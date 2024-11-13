@@ -1,0 +1,1721 @@
+[
+  {
+    "path": "keyboard_name",
+    "type": "String",
+    "required": true,
+    "examples": [
+      "Clueboard 66%"
+    ],
+    "description": "A free-form text string describing the keyboard. This will be used as the USB product string. Can include Unicode characters, escaped to ASCII eg. `\\u03A8` (Ψ)."
+  },
+  {
+    "path": "maintainer",
+    "type": "String",
+    "required": true,
+    "examples": [
+      "skullydazed"
+    ],
+    "description": "GitHub username of the maintainer, or `qmk` for community maintained boards."
+  },
+  {
+    "path": "manufacturer",
+    "type": "String",
+    "required": true,
+    "examples": [
+      "Clueboard"
+    ],
+    "description": "A free-form text string describing the keyboard's manufacturer. This will be used as the USB manufacturer string. Can include Unicode characters, escaped to ASCII eg. `\\u03A8` (Ψ)."
+  },
+  {
+    "path": "url",
+    "type": "String",
+    "required": true,
+    "examples": [
+      "https://clueboard.co"
+    ],
+    "description": "A URL to the keyboard's product page, [QMK Keyboards](https://browse.qmk.fm/) page, or other page describing information about the keyboard."
+  },
+  {
+    "path": "bootloader_instructions",
+    "type": "String",
+    "required": false,
+    "examples": [
+      "Press the button marked RESET on the back of the PCB"
+    ],
+    "description": "Instructions for putting the keyboard into a mode that allows for firmware flashing."
+  },
+  {
+    "path": "tags",
+    "type": "Array: String",
+    "required": false,
+    "examples": [
+      [
+        "ortho",
+        "split",
+        "rgb"
+      ]
+    ],
+    "description": "A list of tags describing the keyboard."
+  },
+  {
+    "path": "board",
+    "type": "String",
+    "required": false,
+    "examples": [
+      "BLACKPILL_STM32_F411"
+    ],
+    "description": "Override the default ChibiOS board name (ARM-based keyboards only)."
+  },
+  {
+    "path": "bootloader",
+    "type": "String",
+    "required": false,
+    "description": "The bootloader in use on the keyboard. Required if `development_board` is not specified."
+  },
+  {
+    "path": "development_board",
+    "type": "String",
+    "required": false,
+    "examples": [
+      "promicro"
+    ],
+    "description": "The microcontroller development board, if applicable."
+  },
+  {
+    "path": "pin_compatible",
+    "type": "String",
+    "required": false,
+    "description": "The form factor of the development board, if applicable. Must be one of `elite_c`, `promicro`."
+  },
+  {
+    "path": "processor",
+    "type": "String",
+    "required": false,
+    "description": "The microcontroller in use on the keyboard. Required if `development_board` is not specified."
+  },
+  {
+    "path": "build.debounce_type",
+    "type": "String",
+    "required": false,
+    "description": "The debounce algorithm to use. Must be one of `asym_eager_defer_pk`, `custom`, `sym_defer_g`, `sym_defer_pk`, `sym_defer_pr`, `sym_eager_pk`, `sym_eager_pr`."
+  },
+  {
+    "path": "build.firmware_format",
+    "type": "String",
+    "required": false,
+    "description": "The format of the final output binary. Must be one of `bin`, `hex`, `uf2`."
+  },
+  {
+    "path": "build.lto",
+    "type": "Boolean",
+    "required": false,
+    "description": "Enable Link-Time Optimization.",
+    "default": false
+  },
+  {
+    "path": "features",
+    "type": "Object: Boolean",
+    "required": false,
+    "examples": [
+      {
+        "rgb_matrix": true,
+        "rgblight": false
+      }
+    ],
+    "description": "A dictionary of features to enable or disable."
+  },
+  {
+    "path": "qmk.locking.enabled",
+    "type": "Boolean",
+    "required": false,
+    "description": "Enable locking switch support.",
+    "default": false
+  },
+  {
+    "path": "qmk.locking.resync",
+    "type": "Boolean",
+    "required": false,
+    "description": "Keep switch state consistent with keyboard LED state.",
+    "default": false
+  },
+  {
+    "path": "qmk.tap_capslock_delay",
+    "type": "Number",
+    "required": false,
+    "description": "The delay between keydown and keyup for Caps Lock tap events in milliseconds.",
+    "default": "`80` (80 ms)"
+  },
+  {
+    "path": "qmk.tap_keycode_delay",
+    "type": "Number",
+    "required": false,
+    "description": "The delay between keydown and keyup for tap events in milliseconds.",
+    "default": "`0` (no delay)"
+  },
+  {
+    "path": "tapping.hold_on_other_key_press",
+    "type": "Boolean",
+    "required": false,
+    "default": false
+  },
+  {
+    "path": "tapping.hold_on_other_key_press_per_key",
+    "type": "Boolean",
+    "required": false,
+    "default": false
+  },
+  {
+    "path": "tapping.permissive_hold",
+    "type": "Boolean",
+    "required": false,
+    "default": false
+  },
+  {
+    "path": "tapping.permissive_hold_per_key",
+    "type": "Boolean",
+    "required": false,
+    "default": false
+  },
+  {
+    "path": "tapping.retro",
+    "type": "Boolean",
+    "required": false,
+    "default": false
+  },
+  {
+    "path": "tapping.retro_per_key",
+    "type": "Boolean",
+    "required": false,
+    "default": false
+  },
+  {
+    "path": "tapping.term",
+    "type": "Number",
+    "required": false,
+    "default": "`200` (200 ms)"
+  },
+  {
+    "path": "tapping.term_per_key",
+    "type": "Boolean",
+    "required": false,
+    "default": false
+  },
+  {
+    "path": "tapping.toggle",
+    "type": "Number",
+    "required": false,
+    "default": 5
+  },
+  {
+    "path": "apa102.clock_pin",
+    "type": "Pin",
+    "required": true,
+    "description": "The GPIO pin connected to `CI` on the first LED in the chain."
+  },
+  {
+    "path": "apa102.data_pin",
+    "type": "Pin",
+    "required": true,
+    "description": "The GPIO pin connected to `DI` on the first LED in the chain."
+  },
+  {
+    "path": "apa102.default_brightness",
+    "type": "Number",
+    "required": false,
+    "description": "The initial global brightness level (independent of the RGB data), from 0 to 31.",
+    "default": 31
+  },
+  {
+    "path": "audio.default.on",
+    "type": "Boolean",
+    "required": false,
+    "description": "The default audio enabled state.",
+    "default": true
+  },
+  {
+    "path": "audio.default.clicky",
+    "type": "Boolean",
+    "required": false,
+    "description": "The default audio clicky enabled state.",
+    "default": true
+  },
+  {
+    "path": "audio.driver",
+    "type": "String",
+    "required": false,
+    "description": "The driver to use. Must be one of `dac_additive`, `dac_basic`, `pwm_software`, `pwm_hardware`."
+  },
+  {
+    "path": "audio.macro_beep",
+    "type": "Boolean",
+    "required": false,
+    "description": "Play a short beep for `\\a` (ASCII `BEL`) characters in Send String macros.",
+    "default": false
+  },
+  {
+    "path": "audio.pins",
+    "type": "Array: Pin",
+    "required": true,
+    "description": "The GPIO pin(s) connected to the speaker(s)."
+  },
+  {
+    "path": "audio.power_control.on_state",
+    "type": "0|1",
+    "required": false,
+    "description": "The logical GPIO state required to turn the speaker on.",
+    "default": "`1` (on = high)"
+  },
+  {
+    "path": "audio.power_control.pin",
+    "type": "Pin",
+    "required": false,
+    "description": "The GPIO pin connected to speaker power circuit."
+  },
+  {
+    "path": "audio.voices",
+    "type": "Boolean",
+    "required": false,
+    "description": "Use multiple audio voices.",
+    "default": false
+  },
+  {
+    "path": "backlight.as_caps_lock",
+    "type": "Boolean",
+    "required": false,
+    "description": "Use the backlight as a Caps Lock indicator.",
+    "default": false
+  },
+  {
+    "path": "backlight.breathing",
+    "type": "Boolean",
+    "required": false,
+    "description": "Whether backlight breathing is enabled.",
+    "default": false
+  },
+  {
+    "path": "backlight.breathing_period",
+    "type": "Number",
+    "required": false,
+    "description": "The length of one backlight breathing cycle in seconds.",
+    "default": "`6` (6 seconds)"
+  },
+  {
+    "path": "backlight.default.on",
+    "type": "Boolean",
+    "required": false,
+    "description": "The default backlight enabled state.",
+    "default": true
+  },
+  {
+    "path": "backlight.default.breathing",
+    "type": "Boolean",
+    "required": false,
+    "description": "The default backlight breathing state.",
+    "default": false
+  },
+  {
+    "path": "backlight.default.brightness",
+    "type": "Number",
+    "required": false,
+    "description": "The default brightness level.",
+    "default": "`max_brightness`"
+  },
+  {
+    "path": "backlight.driver",
+    "type": "String",
+    "required": false,
+    "description": "The driver to use. Must be one of `custom`, `pwm`, `software`, `timer`.",
+    "default": "pwm"
+  },
+  {
+    "path": "backlight.levels",
+    "type": "Number",
+    "required": false,
+    "description": "The number of brightness levels (excluding off), from 1 to 31.",
+    "default": 3
+  },
+  {
+    "path": "backlight.max_brightness",
+    "type": "Number",
+    "required": false,
+    "description": "The maximum PWM value which brightness is scaled to, from 0 to 255.",
+    "default": 255
+  },
+  {
+    "path": "backlight.on_state",
+    "type": "0|1",
+    "required": false,
+    "description": "The logical GPIO state required to turn the LEDs on.",
+    "default": "`1` (on = high)"
+  },
+  {
+    "path": "backlight.pin",
+    "type": "Pin",
+    "required": false,
+    "description": "The GPIO pin connected to the backlight circuit."
+  },
+  {
+    "path": "backlight.pins",
+    "type": "Array: Pin",
+    "required": false,
+    "description": "A list of GPIO pins connected to the backlight LEDs (`software` and `timer` drivers only)."
+  },
+  {
+    "path": "bluetooth.driver",
+    "type": "String",
+    "required": false,
+    "description": "The driver to use. Must be one of `custom`, `bluefruit_le`, `rn42`."
+  },
+  {
+    "path": "bootmagic.enabled",
+    "type": "Boolean",
+    "required": false,
+    "description": "Enables the Bootmagic feature.",
+    "default": false
+  },
+  {
+    "path": "bootmagic.matrix",
+    "type": "Matrix",
+    "required": false,
+    "description": "The matrix position of the key to check during startup. This should generally be set to the (physically) top left key.",
+    "default": [
+      0,
+      0
+    ]
+  },
+  {
+    "path": "caps_word.both_shifts_turns_on",
+    "type": "Boolean",
+    "required": false,
+    "description": "Activate Caps Word by pressing both Shift keys.",
+    "default": false
+  },
+  {
+    "path": "caps_word.double_tap_shift_turns_on",
+    "type": "Boolean",
+    "required": false,
+    "description": "Activate Caps Word by pressing Left Shift twice.",
+    "default": false
+  },
+  {
+    "path": "caps_word.enabled",
+    "type": "Boolean",
+    "required": false,
+    "description": "Enables the Caps Word feature.",
+    "default": false
+  },
+  {
+    "path": "caps_word.idle_timeout",
+    "type": "Number",
+    "required": false,
+    "description": "The amount of time before Caps Word automatically deactivates in milliseconds.",
+    "default": "`5000` (5 seconds)"
+  },
+  {
+    "path": "caps_word.invert_on_shift",
+    "type": "Boolean",
+    "required": false,
+    "description": "Invert shift state instead of deactivating Caps Word when Shift is pressed.",
+    "default": false
+  },
+  {
+    "path": "combo.term",
+    "type": "Number",
+    "required": false,
+    "description": "The amount of time to recognize a combo in milliseconds.",
+    "default": "`50` (50 ms)"
+  },
+  {
+    "path": "dip_switch.enabled",
+    "type": "Boolean",
+    "required": false,
+    "description": "Enable the DIP Switches feature.",
+    "default": false
+  },
+  {
+    "path": "dip_switch.pins",
+    "type": "Array: Pin",
+    "required": false,
+    "description": "A list of GPIO pins connected to the MCU."
+  },
+  {
+    "path": "dip_switch.matrix_grid",
+    "type": "Array: Matrix",
+    "required": false,
+    "examples": [
+      [
+        [
+          0,
+          6
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          6
+        ]
+      ]
+    ],
+    "description": "A list of matrix locations in the key matrix."
+  },
+  {
+    "path": "eeprom.driver",
+    "type": "String",
+    "required": false,
+    "description": "The EEPROM backend to use. Must be one of `custom`, `i2c`, `legacy_stm32_flash`, `spi`, `transient`, `vendor`, `wear_leveling`.",
+    "default": "vendor"
+  },
+  {
+    "path": "eeprom.wear_leveling.driver",
+    "type": "String",
+    "required": false,
+    "description": "The driver to use. Must be one of `embedded_flash`, `legacy`, `rp2040_flash`, `spi_flash`, `custom`."
+  },
+  {
+    "path": "eeprom.wear_leveling.backing_size",
+    "type": "Number",
+    "required": false,
+    "description": "Number of bytes used by the wear-leveling algorithm for its underlying storage, and needs to be a multiple of the logical size."
+  },
+  {
+    "path": "eeprom.wear_leveling.logical_size",
+    "type": "Number",
+    "required": false,
+    "description": "Number of bytes “exposed” to the rest of QMK and denotes the size of the usable EEPROM."
+  },
+  {
+    "path": "encoder.rotary",
+    "type": "Array: Object",
+    "required": false,
+    "additionalProperties": [
+      {
+        "path": "pin_a",
+        "type": "Pin",
+        "required": true,
+        "description": "The GPIO pin connected to the encoder's `A` pin."
+      },
+      {
+        "path": "pin_b",
+        "type": "Pin",
+        "required": true,
+        "description": "The GPIO pin connected to the encoder's `B` pin."
+      },
+      {
+        "path": "resolution",
+        "type": "Number",
+        "required": false,
+        "description": "The number of edge transitions on both pins required to register an input.",
+        "default": 4
+      }
+    ],
+    "description": "A list of encoder objects."
+  },
+  {
+    "path": "indicators.caps_lock",
+    "type": "Pin",
+    "required": false,
+    "description": "The GPIO pin connected to the Caps Lock LED."
+  },
+  {
+    "path": "indicators.compose",
+    "type": "Pin",
+    "required": false,
+    "description": "The GPIO pin connected to the Compose LED."
+  },
+  {
+    "path": "indicators.kana",
+    "type": "Pin",
+    "required": false,
+    "description": "The GPIO pin connected to the Kana LED."
+  },
+  {
+    "path": "indicators.num_lock",
+    "type": "Pin",
+    "required": false,
+    "description": "The GPIO pin connected to the Num Lock LED."
+  },
+  {
+    "path": "indicators.on_state",
+    "type": "0|1",
+    "required": false,
+    "description": "The logical GPIO state required to turn the LEDs on.",
+    "default": "`1` (on = high)"
+  },
+  {
+    "path": "indicators.scroll_lock",
+    "type": "Pin",
+    "required": false,
+    "description": "The GPIO pin connected to the Scroll Lock LED."
+  },
+  {
+    "path": "community_layouts",
+    "type": "Array: String",
+    "required": false,
+    "examples": [
+      [
+        "60_ansi",
+        "60_iso"
+      ]
+    ],
+    "description": "A list of community layouts supported by the keyboard."
+  },
+  {
+    "path": "layout_aliases",
+    "type": "Object: String",
+    "required": false,
+    "examples": [
+      {
+        "LAYOUT_ansi": "LAYOUT_60_ansi",
+        "LAYOUT_iso": "LAYOUT_60_iso"
+      }
+    ],
+    "description": "A mapping of layout aliases to layout definitions."
+  },
+  {
+    "path": "layouts",
+    "type": "Object",
+    "required": false,
+    "description": "A dictionary of layouts supported by the keyboard.",
+    "additionalProperties": [
+      {
+        "path": "layout",
+        "type": "Array: Object",
+        "required": false,
+        "additionalProperties": [
+          {
+            "path": "matrix",
+            "type": "Matrix",
+            "required": true,
+            "examples": [
+              "`[0, 4]` (row 0, column 4)"
+            ],
+            "description": "The matrix position for the key."
+          },
+          {
+            "path": "x",
+            "type": "KeyUnit",
+            "required": true,
+            "description": "The absolute position of the key in the horizontal axis, in key units."
+          },
+          {
+            "path": "y",
+            "type": "KeyUnit",
+            "required": true,
+            "description": "The absolute position of the key in the vertical axis, in key units."
+          },
+          {
+            "path": "h",
+            "type": "KeyUnit",
+            "required": false,
+            "description": "The height of the key, in key units.",
+            "default": "`1` (1u)"
+          },
+          {
+            "path": "label",
+            "type": "String",
+            "required": false,
+            "examples": [
+              "Escape"
+            ],
+            "description": "What to name the key. This is *not* a key assignment as in the keymap, but should usually correspond to the keycode for the first layer of the default keymap."
+          },
+          {
+            "path": "r",
+            "type": "Number",
+            "required": false,
+            "description": "The rotation angle in degrees. Currently not implemented."
+          },
+          {
+            "path": "rx",
+            "type": "Number",
+            "required": false,
+            "description": "The absolute X position of the rotation axis. Currently not implemented."
+          },
+          {
+            "path": "ry",
+            "type": "Number",
+            "required": false,
+            "description": "The absolute Y position of the rotation axis. Currently not implemented."
+          },
+          {
+            "path": "w",
+            "type": "KeyUnit",
+            "required": false,
+            "description": "The width of the key, in key units.",
+            "default": "`1` (1u)"
+          },
+          {
+            "path": "encoder",
+            "type": "Number",
+            "required": false,
+            "description": "The index of an encoder this key should be linked to"
+          }
+        ],
+        "description": "A list of key dictionaries comprising the layout. Each key dictionary contains:"
+      }
+    ]
+  },
+  {
+    "path": "leader_key.timing",
+    "type": "Boolean",
+    "required": false,
+    "description": "Reset the `timeout` on each keypress.",
+    "default": false
+  },
+  {
+    "path": "leader_key.strict_processing",
+    "type": "Boolean",
+    "required": false,
+    "description": "Do not extract the tap keycodes from Layer-Tap and Mod-Tap key events.",
+    "default": false
+  },
+  {
+    "path": "leader_key.timeout",
+    "type": "Number",
+    "required": false,
+    "description": "The amount of time to complete a leader sequence in milliseconds.",
+    "default": "`300` (300 ms)"
+  },
+  {
+    "path": "led_matrix.animations",
+    "type": "Object: Boolean",
+    "required": false,
+    "examples": [
+      {
+        "alphas_mods": true,
+        "breathing": true,
+        "cycle_left_right": false
+      }
+    ],
+    "description": "A dictionary of effects to enable or disable. Effects which are absent default to `false`."
+  },
+  {
+    "path": "led_matrix.center_point",
+    "type": "Array: Number",
+    "required": false,
+    "description": "The centroid (geometric center) of the LEDs. Used for certain effects.",
+    "default": [
+      112,
+      32
+    ]
+  },
+  {
+    "path": "led_matrix.default.animation",
+    "type": "String",
+    "required": false,
+    "description": "The default effect. Must be one of `led_matrix.animations`",
+    "default": "solid"
+  },
+  {
+    "path": "led_matrix.default.on",
+    "type": "Boolean",
+    "required": false,
+    "description": "The default enabled state.",
+    "default": true
+  },
+  {
+    "path": "led_matrix.default.val",
+    "type": "Number",
+    "required": false,
+    "description": "The default brightness level.",
+    "default": "`max_brightness`"
+  },
+  {
+    "path": "led_matrix.default.speed",
+    "type": "Number",
+    "required": false,
+    "description": "The default animation speed.",
+    "default": 128
+  },
+  {
+    "path": "led_matrix.driver",
+    "type": "String",
+    "required": true,
+    "description": "The driver to use. Must be one of `custom`, `is31fl3218`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `snled27351`."
+  },
+  {
+    "path": "led_matrix.layout",
+    "type": "Array: Object",
+    "required": true,
+    "additionalProperties": [
+      {
+        "path": "flags",
+        "type": "Number",
+        "required": true,
+        "description": "A bitfield of flags describing the type of LED."
+      },
+      {
+        "path": "x",
+        "type": "Number",
+        "required": true,
+        "description": "The position of the LED in the horizontal axis, from 0 to 224."
+      },
+      {
+        "path": "y",
+        "type": "Number",
+        "required": true,
+        "description": "The position of the LED in the vertical axis, from 0 to 64."
+      },
+      {
+        "path": "matrix",
+        "type": "Matrix",
+        "required": false,
+        "examples": [
+          [
+            0,
+            2
+          ]
+        ],
+        "description": "The key matrix position associated with the LED."
+      }
+    ],
+    "description": "List of LED configuration dictionaries. Each dictionary contains:"
+  },
+  {
+    "path": "led_matrix.led_flush_limit",
+    "type": "Number",
+    "required": false,
+    "description": "Limits in milliseconds how frequently an animation will update the LEDs.",
+    "default": 16
+  },
+  {
+    "path": "led_matrix.led_process_limit",
+    "type": "Number",
+    "required": false,
+    "description": "Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness).",
+    "default": "`led_count / 5`"
+  },
+  {
+    "path": "led_matrix.max_brightness",
+    "type": "Number",
+    "required": false,
+    "description": "The maximum value which brightness is scaled to, from 0 to 255.",
+    "default": 255
+  },
+  {
+    "path": "led_matrix.react_on_keyup",
+    "type": "Boolean",
+    "required": false,
+    "description": "Animations react to keyup instead of keydown.",
+    "default": false
+  },
+  {
+    "path": "led_matrix.sleep",
+    "type": "Boolean",
+    "required": false,
+    "description": "Turn off the LEDs when the host goes to sleep.",
+    "default": false
+  },
+  {
+    "path": "led_matrix.speed_steps",
+    "type": "Number",
+    "required": false,
+    "description": "The number of speed adjustment steps.",
+    "default": 16
+  },
+  {
+    "path": "led_matrix.split_count",
+    "type": "Array: Number",
+    "required": false,
+    "examples": [
+      [
+        16,
+        16
+      ]
+    ],
+    "description": "For split keyboards, the number of LEDs on each half."
+  },
+  {
+    "path": "led_matrix.timeout",
+    "type": "Number",
+    "required": false,
+    "description": "The LED activity timeout in milliseconds.",
+    "default": "`0` (no timeout)"
+  },
+  {
+    "path": "led_matrix.val_steps",
+    "type": "Number",
+    "required": false,
+    "description": "The number of brightness adjustment steps.",
+    "default": 8
+  },
+  {
+    "path": "debounce",
+    "type": "Number",
+    "required": false,
+    "description": "The debounce time in milliseconds.",
+    "default": "`5` (5 ms)"
+  },
+  {
+    "path": "diode_direction",
+    "type": "String",
+    "required": false,
+    "description": "Which way the diodes are \"pointing\". Unused for `matrix_pins.direct`. Must be one of `COL2ROW`, `ROW2COL`."
+  },
+  {
+    "path": "matrix_pins.cols",
+    "type": "Array: Pin",
+    "required": false,
+    "examples": [
+      [
+        "A0",
+        "A1",
+        "A2"
+      ]
+    ],
+    "description": "A list of GPIO pins connected to the matrix columns."
+  },
+  {
+    "path": "matrix_pins.custom",
+    "type": "Boolean",
+    "required": false,
+    "description": "Whether to use a custom matrix scanning implementation.",
+    "default": false
+  },
+  {
+    "path": "matrix_pins.custom_lite",
+    "type": "Boolean",
+    "required": false,
+    "description": "Whether to use a \"lite\" custom matrix scanning implementation.",
+    "default": false
+  },
+  {
+    "path": "matrix_pins.direct",
+    "type": "Array: Array: Pin",
+    "required": false,
+    "examples": [
+      [
+        [
+          "A0",
+          "A1",
+          "A2"
+        ],
+        [
+          "B0",
+          "B1",
+          "B2"
+        ],
+        [
+          "C0",
+          "C1",
+          "C2"
+        ]
+      ]
+    ],
+    "description": "A 2-dimensional list of GPIO pins connected to each keyswitch, forming the \"matrix\" rows and columns."
+  },
+  {
+    "path": "matrix_pins.ghost",
+    "type": "Boolean",
+    "required": false,
+    "description": "Whether the matrix has no anti-ghosting diodes.",
+    "default": false
+  },
+  {
+    "path": "matrix_pins.input_pressed_state",
+    "type": "0|1",
+    "required": false,
+    "description": "The logical GPIO state of the input pins when a key is pressed.",
+    "default": "`0` (pressed = low)"
+  },
+  {
+    "path": "matrix_pins.io_delay",
+    "type": "Number",
+    "required": false,
+    "description": "The amount of time to wait between row/col selection and col/row pin reading, in microseconds.",
+    "default": "`30` (30 µs)"
+  },
+  {
+    "path": "matrix_pins.rows",
+    "type": "Array: Pin",
+    "required": false,
+    "examples": [
+      [
+        "B0",
+        "B1",
+        "B2"
+      ]
+    ],
+    "description": "A list of GPIO pins connected to the matrix rows."
+  },
+  {
+    "path": "mouse_key.delay",
+    "type": "Number",
+    "required": false
+  },
+  {
+    "path": "mouse_key.enabled",
+    "type": "Boolean",
+    "required": false,
+    "description": "Enables the Mouse Keys feature.",
+    "default": false
+  },
+  {
+    "path": "mouse_key.interval",
+    "type": "Number",
+    "required": false
+  },
+  {
+    "path": "mouse_key.max_speed",
+    "type": "Number",
+    "required": false
+  },
+  {
+    "path": "mouse_key.time_to_max",
+    "type": "Number",
+    "required": false
+  },
+  {
+    "path": "mouse_key.wheel_delay",
+    "type": "Number",
+    "required": false
+  },
+  {
+    "path": "oneshot.tap_toggle",
+    "type": "Number",
+    "required": false,
+    "description": "The number of times to tap the key in order to hold it."
+  },
+  {
+    "path": "oneshot.timeout",
+    "type": "Number",
+    "required": false,
+    "description": "The amount of time before the key is released in milliseconds."
+  },
+  {
+    "path": "ps2.clock_pin",
+    "type": "Pin",
+    "required": false,
+    "description": "The GPIO pin connected to `CLK` on the PS/2 device."
+  },
+  {
+    "path": "ps2.data_pin",
+    "type": "Pin",
+    "required": false,
+    "description": "The GPIO pin connected to `DATA` on the PS/2 device."
+  },
+  {
+    "path": "ps2.driver",
+    "type": "String",
+    "required": false,
+    "description": "The PS/2 driver to use. Must be one of `busywait`, `interrupt`, `usart`, `vendor`.",
+    "default": "busywait"
+  },
+  {
+    "path": "ps2.enabled",
+    "type": "Boolean",
+    "required": false,
+    "description": "Enable the PS/2 feature.",
+    "default": false
+  },
+  {
+    "path": "ps2.mouse_enabled",
+    "type": "Boolean",
+    "required": false,
+    "description": "Enable the PS/2 mouse handling.",
+    "default": false
+  },
+  {
+    "path": "qmk_lufa_bootloader.esc_input",
+    "type": "Pin",
+    "required": true,
+    "description": "The GPIO pin connected to the designated \"exit bootloader\" key's row (if `COL2ROW`)."
+  },
+  {
+    "path": "qmk_lufa_bootloader.esc_output",
+    "type": "Pin",
+    "required": true,
+    "description": "The GPIO pin connected to the designated \"exit bootloader\" key's column (if `COL2ROW`)."
+  },
+  {
+    "path": "qmk_lufa_bootloader.led",
+    "type": "Pin",
+    "required": false,
+    "description": "The GPIO pin connected to an LED to flash."
+  },
+  {
+    "path": "qmk_lufa_bootloader.speaker",
+    "type": "Pin",
+    "required": false,
+    "description": "The GPIO pin connected to a speaker to click (can also be used for a second LED)."
+  },
+  {
+    "path": "rgblight.led_count",
+    "type": "Number",
+    "required": true,
+    "description": "The number of LEDs in the chain."
+  },
+  {
+    "path": "rgblight.animations",
+    "type": "Object: Boolean",
+    "required": false,
+    "examples": [
+      {
+        "breathing": true,
+        "rainbow_mood": true,
+        "snake": false
+      }
+    ],
+    "description": "A dictionary of effects to enable or disable. Effects which are absent default to `false`."
+  },
+  {
+    "path": "rgblight.brightness_steps",
+    "type": "Number",
+    "required": false,
+    "description": "The number of brightness adjustment steps.",
+    "default": 17
+  },
+  {
+    "path": "rgblight.default.animation",
+    "type": "String",
+    "required": false,
+    "description": "The default effect. Must be one of `rgblight.animations`",
+    "default": "static_light"
+  },
+  {
+    "path": "rgblight.default.on",
+    "type": "Boolean",
+    "required": false,
+    "description": "The default enabled state.",
+    "default": true
+  },
+  {
+    "path": "rgblight.default.hue",
+    "type": "Number",
+    "required": false,
+    "description": "The default hue value.",
+    "default": 0
+  },
+  {
+    "path": "rgblight.default.sat",
+    "type": "Number",
+    "required": false,
+    "description": "The default saturation value.",
+    "default": 255
+  },
+  {
+    "path": "rgblight.default.val",
+    "type": "Number",
+    "required": false,
+    "description": "The default brightness level.",
+    "default": "`max_brightness`"
+  },
+  {
+    "path": "rgblight.default.speed",
+    "type": "Number",
+    "required": false,
+    "description": "The default animation speed.",
+    "default": 0
+  },
+  {
+    "path": "rgblight.driver",
+    "type": "String",
+    "required": false,
+    "description": "The driver to use. Must be one of `apa102`, `custom`, `ws2812`.",
+    "default": "ws2812"
+  },
+  {
+    "path": "rgblight.hue_steps",
+    "type": "Number",
+    "required": false,
+    "description": "The number of hue adjustment steps.",
+    "default": 8
+  },
+  {
+    "path": "rgblight.layers.blink",
+    "type": "Boolean",
+    "required": false,
+    "description": "Enable layer blinking API.",
+    "default": false
+  },
+  {
+    "path": "rgblight.layers.enabled",
+    "type": "Boolean",
+    "required": false,
+    "description": "Enable RGB Lighting Layers.",
+    "default": false
+  },
+  {
+    "path": "rgblight.layers.max",
+    "type": "Number",
+    "required": false,
+    "description": "The maximum layer count, from 1 to 32.",
+    "default": 8
+  },
+  {
+    "path": "rgblight.led_map",
+    "type": "Array: Number",
+    "required": false,
+    "examples": [
+      [
+        4,
+        3,
+        2,
+        1,
+        0
+      ]
+    ],
+    "description": "Remap LED indices."
+  },
+  {
+    "path": "rgblight.max_brightness",
+    "type": "Number",
+    "required": false,
+    "description": "The maximum value which the HSV \"V\" component is scaled to, from 0 to 255.",
+    "default": 255
+  },
+  {
+    "path": "rgblight.saturation_steps",
+    "type": "Number",
+    "required": false,
+    "description": "The number of saturation adjustment steps.",
+    "default": 17
+  },
+  {
+    "path": "rgblight.sleep",
+    "type": "Boolean",
+    "required": false,
+    "description": "Turn off the LEDs when the host goes to sleep.",
+    "default": false
+  },
+  {
+    "path": "rgblight.split",
+    "type": "Boolean",
+    "required": false,
+    "description": "Enable synchronization between split halves.",
+    "default": false
+  },
+  {
+    "path": "rgblight.split_count",
+    "type": "Array: Number",
+    "required": false,
+    "examples": [
+      [
+        10,
+        10
+      ]
+    ],
+    "description": "When `rgblight.split` is enabled, the number of LEDs on each half."
+  },
+  {
+    "path": "rgb_matrix.animations",
+    "type": "Object: Boolean",
+    "required": false,
+    "examples": [
+      {
+        "alphas_mods": true,
+        "breathing": true,
+        "cycle_left_right": false
+      }
+    ],
+    "description": "A dictionary of effects to enable or disable. Effects which are absent default to `false`."
+  },
+  {
+    "path": "rgb_matrix.center_point",
+    "type": "Array: Number",
+    "required": false,
+    "description": "The centroid (geometric center) of the LEDs. Used for certain effects.",
+    "default": [
+      112,
+      32
+    ]
+  },
+  {
+    "path": "rgb_matrix.default.animation",
+    "type": "String",
+    "required": false,
+    "description": "The default effect. Must be one of `rgb_matrix.animations`",
+    "default": "solid_color"
+  },
+  {
+    "path": "rgb_matrix.default.on",
+    "type": "Boolean",
+    "required": false,
+    "description": "The default enabled state.",
+    "default": true
+  },
+  {
+    "path": "rgb_matrix.default.hue",
+    "type": "Number",
+    "required": false,
+    "description": "The default hue value.",
+    "default": 0
+  },
+  {
+    "path": "rgb_matrix.default.sat",
+    "type": "Number",
+    "required": false,
+    "description": "The default saturation value.",
+    "default": 255
+  },
+  {
+    "path": "rgb_matrix.default.val",
+    "type": "Number",
+    "required": false,
+    "description": "The default brightness level.",
+    "default": "`max_brightness`"
+  },
+  {
+    "path": "rgb_matrix.default.speed",
+    "type": "Number",
+    "required": false,
+    "description": "The default animation speed.",
+    "default": 128
+  },
+  {
+    "path": "rgb_matrix.driver",
+    "type": "String",
+    "required": true,
+    "description": "The driver to use. Must be one of `aw20216s`, `custom`, `is31fl3218`, `is31fl3236`, `is31fl3729`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `snled27351`, `ws2812`."
+  },
+  {
+    "path": "rgb_matrix.hue_steps",
+    "type": "Number",
+    "required": false,
+    "description": "The number of hue adjustment steps.",
+    "default": 8
+  },
+  {
+    "path": "rgb_matrix.layout",
+    "type": "Array: Object",
+    "required": true,
+    "additionalProperties": [
+      {
+        "path": "flags",
+        "type": "Number",
+        "required": true,
+        "description": "A bitfield of flags describing the type of LED."
+      },
+      {
+        "path": "x",
+        "type": "Number",
+        "required": true,
+        "description": "The position of the LED in the horizontal axis, from 0 to 224."
+      },
+      {
+        "path": "y",
+        "type": "Number",
+        "required": true,
+        "description": "The position of the LED in the vertical axis, from 0 to 64."
+      },
+      {
+        "path": "matrix",
+        "type": "Matrix",
+        "required": false,
+        "examples": [
+          [
+            0,
+            2
+          ]
+        ],
+        "description": "The key matrix position associated with the LED."
+      }
+    ],
+    "description": "List of LED configuration dictionaries. Each dictionary contains:"
+  },
+  {
+    "path": "rgb_matrix.led_flush_limit",
+    "type": "Number",
+    "required": false,
+    "description": "Limits in milliseconds how frequently an animation will update the LEDs.",
+    "default": 16
+  },
+  {
+    "path": "rgb_matrix.led_process_limit",
+    "type": "Number",
+    "required": false,
+    "description": "Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness).",
+    "default": "`led_count / 5`"
+  },
+  {
+    "path": "rgb_matrix.max_brightness",
+    "type": "Number",
+    "required": false,
+    "description": "The maximum value which the HSV \"V\" component is scaled to, from 0 to 255.",
+    "default": 255
+  },
+  {
+    "path": "rgb_matrix.react_on_keyup",
+    "type": "Boolean",
+    "required": false,
+    "description": "Animations react to keyup instead of keydown.",
+    "default": false
+  },
+  {
+    "path": "rgb_matrix.sat_steps",
+    "type": "Number",
+    "required": false,
+    "description": "The number of saturation adjustment steps.",
+    "default": 16
+  },
+  {
+    "path": "rgb_matrix.sleep",
+    "type": "Boolean",
+    "required": false,
+    "description": "Turn off the LEDs when the host goes to sleep.",
+    "default": false
+  },
+  {
+    "path": "rgb_matrix.speed_steps",
+    "type": "Number",
+    "required": false,
+    "description": "The number of speed adjustment steps.",
+    "default": 16
+  },
+  {
+    "path": "rgb_matrix.split_count",
+    "type": "Array: Number",
+    "required": false,
+    "examples": [
+      [
+        16,
+        16
+      ]
+    ],
+    "description": "For split keyboards, the number of LEDs on each half."
+  },
+  {
+    "path": "rgb_matrix.timeout",
+    "type": "Number",
+    "required": false,
+    "description": "The LED activity timeout in milliseconds.",
+    "default": "`0` (no timeout)"
+  },
+  {
+    "path": "rgb_matrix.val_steps",
+    "type": "Number",
+    "required": false,
+    "description": "The number of brightness adjustment steps.",
+    "default": 16
+  },
+  {
+    "path": "secure.enabled",
+    "type": "Boolean",
+    "required": false,
+    "description": "Enable the Secure feature.",
+    "default": false
+  },
+  {
+    "path": "secure.idle_timeout",
+    "type": "Number",
+    "required": false,
+    "description": "Timeout while unlocked before returning to the locked state. Set to `0` to disable.",
+    "default": "`60000` (1 minute)"
+  },
+  {
+    "path": "secure.unlock_sequence",
+    "type": "Array: Matrix",
+    "required": false,
+    "examples": [
+      [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          4,
+          3
+        ]
+      ]
+    ],
+    "description": "A list of up to five matrix locations comprising the \"unlock sequence\"."
+  },
+  {
+    "path": "secure.unlock_timeout",
+    "type": "Number",
+    "required": false,
+    "description": "Timeout for the user to perform the unlock sequence. Set to `0` to disable.",
+    "default": "`5000` (5 seconds)"
+  },
+  {
+    "path": "split.enabled",
+    "type": "Boolean",
+    "required": false,
+    "description": "Enable the Split Keyboard feature.",
+    "default": false
+  },
+  {
+    "path": "split.handedness.pin",
+    "type": "Pin",
+    "required": false,
+    "description": "The GPIO pin connected to determine handedness."
+  },
+  {
+    "path": "split.handedness.matrix_grid",
+    "type": "Array: Pin",
+    "required": false,
+    "examples": [
+      [
+        "A1",
+        "B5"
+      ]
+    ],
+    "description": "The GPIO pins of the matrix position which determines the handedness."
+  },
+  {
+    "path": "split.serial.driver",
+    "type": "String",
+    "required": false,
+    "description": "The driver to use. Must be one of `bitbang`, `usart`, `vendor`.",
+    "default": "bitbang"
+  },
+  {
+    "path": "split.serial.pin",
+    "type": "Pin",
+    "required": false,
+    "description": "The GPIO pin to use for transmit and receive."
+  },
+  {
+    "path": "split.soft_serial_speed",
+    "type": "Number",
+    "required": false,
+    "description": "The protocol speed, from `0` to `5` (`serial` transport protocol only).",
+    "default": 1
+  },
+  {
+    "path": "split.transport.protocol",
+    "type": "String",
+    "required": false,
+    "description": "The split transport protocol to use. Must be one of `custom`, `i2c`, `serial`."
+  },
+  {
+    "path": "split.transport.sync.activity",
+    "type": "Boolean",
+    "required": false,
+    "description": "Mirror the activity timestamps to the secondary half.",
+    "default": false
+  },
+  {
+    "path": "split.transport.sync.detected_os",
+    "type": "Boolean",
+    "required": false,
+    "description": "Mirror the [detected OS](features/os_detection) to the secondary half.",
+    "default": false
+  },
+  {
+    "path": "split.transport.sync.haptic",
+    "type": "Boolean",
+    "required": false,
+    "description": "Mirror the haptic state and process haptic feedback to the secondary half.",
+    "default": false
+  },
+  {
+    "path": "split.transport.sync.layer_state",
+    "type": "Boolean",
+    "required": false,
+    "description": "Mirror the layer state to the secondary half.",
+    "default": false
+  },
+  {
+    "path": "split.transport.sync.indicators",
+    "type": "Boolean",
+    "required": false,
+    "description": "Mirror the indicator state to the secondary half.",
+    "default": false
+  },
+  {
+    "path": "split.transport.sync.matrix_state",
+    "type": "Boolean",
+    "required": false,
+    "description": "Mirror the main/primary half's matrix state to the secondary half.",
+    "default": false
+  },
+  {
+    "path": "split.transport.sync.modifiers",
+    "type": "Boolean",
+    "required": false,
+    "description": "Mirror the modifier state to the secondary half.",
+    "default": false
+  },
+  {
+    "path": "split.transport.sync.oled",
+    "type": "Boolean",
+    "required": false,
+    "description": "Mirror the OLED on/off status to the secondary half.",
+    "default": false
+  },
+  {
+    "path": "split.transport.sync.st7565",
+    "type": "Boolean",
+    "required": false,
+    "description": "Mirror the ST7565 on/off status to the secondary half.",
+    "default": false
+  },
+  {
+    "path": "split.transport.sync.wpm",
+    "type": "Boolean",
+    "required": false,
+    "description": "Mirror the current WPM value to the secondary half.",
+    "default": false
+  },
+  {
+    "path": "split.transport.watchdog",
+    "type": "Boolean",
+    "required": false,
+    "description": "Reboot the secondary half if it loses connection.",
+    "default": false
+  },
+  {
+    "path": "split.transport.watchdog_timeout",
+    "type": "Number",
+    "required": false,
+    "description": "The amount of time to wait for communication from the primary half in milliseconds."
+  },
+  {
+    "path": "split.usb_detect.enabled",
+    "type": "Boolean",
+    "required": false,
+    "description": "Detect USB connection when determining split half roles."
+  },
+  {
+    "path": "split.usb_detect.polling_interval",
+    "type": "Number",
+    "required": false,
+    "description": "The polling frequency in milliseconds.",
+    "default": "`10` (10 ms)"
+  },
+  {
+    "path": "split.usb_detect.timeout",
+    "type": "Number",
+    "required": false,
+    "description": "The amount of time to wait for a USB connection in milliseconds.",
+    "default": "`2000` (2 seconds)"
+  },
+  {
+    "path": "stenography.enabled",
+    "type": "Boolean",
+    "required": false,
+    "description": "Enable the Stenography feature.",
+    "default": false
+  },
+  {
+    "path": "stenography.protocol",
+    "type": "String",
+    "required": false,
+    "description": "The Steno protocol to use. Must be one of `all`, `geminipr`, `txbolt`.",
+    "default": "all"
+  },
+  {
+    "path": "usb.device_version",
+    "type": "String",
+    "required": true,
+    "examples": [
+      "1.0.0"
+    ],
+    "description": "A BCD version number in the format `MM.m.r` (up to `99.9.9`)."
+  },
+  {
+    "path": "usb.pid",
+    "type": "String",
+    "required": true,
+    "examples": [
+      "0x23B0"
+    ],
+    "description": "The USB product ID as a four-digit hexadecimal number."
+  },
+  {
+    "path": "usb.vid",
+    "type": "String",
+    "required": true,
+    "examples": [
+      "0xC1ED"
+    ],
+    "description": "The USB vendor ID as a four-digit hexadecimal number."
+  },
+  {
+    "path": "usb.force_nkro",
+    "type": "Boolean",
+    "required": false,
+    "description": "Force NKRO to be active.",
+    "default": false
+  },
+  {
+    "path": "usb.max_power",
+    "type": "Number",
+    "required": false,
+    "description": "The maximum current draw the host should expect from the device. This does not control the actual current usage.",
+    "default": "`500` (500 mA)"
+  },
+  {
+    "path": "usb.no_startup_check",
+    "type": "Boolean",
+    "required": false,
+    "description": "Disable USB suspend check after keyboard startup.",
+    "default": false
+  },
+  {
+    "path": "usb.polling_interval",
+    "type": "Number",
+    "required": false,
+    "description": "The frequency at which the host should poll the keyboard for reports.",
+    "default": "`1` (1 ms/1000 Hz)"
+  },
+  {
+    "path": "usb.shared_endpoint.keyboard",
+    "type": "Boolean",
+    "required": false,
+    "description": "Send keyboard reports through the \"shared\" USB endpoint.",
+    "default": false
+  },
+  {
+    "path": "usb.shared_endpoint.mouse",
+    "type": "Boolean",
+    "required": false,
+    "description": "Send mouse reports through the \"shared\" USB endpoint.",
+    "default": true
+  },
+  {
+    "path": "usb.suspend_wakeup_delay",
+    "type": "Number",
+    "required": false,
+    "description": "The amount of time to wait after sending a wakeup packet, in milliseconds.",
+    "default": "`0` (disabled)"
+  },
+  {
+    "path": "usb.wait_for_enumeration",
+    "type": "Boolean",
+    "required": false,
+    "description": "Force the keyboard to wait for USB enumeration before starting up.",
+    "default": false
+  },
+  {
+    "path": "ws2812.driver",
+    "type": "String",
+    "required": false,
+    "description": "The driver to use. Must be one of `bitbang`, `custom`, `i2c`, `pwm`, `spi`, `vendor`.",
+    "default": "bitbang"
+  },
+  {
+    "path": "ws2812.pin",
+    "type": "Pin",
+    "required": true,
+    "description": "The GPIO pin connected to `DI` on the first LED in the chain (`bitbang`, `pwm`, `spi` and `vendor` drivers only)."
+  },
+  {
+    "path": "ws2812.i2c_address",
+    "type": "String",
+    "required": false,
+    "description": "The I²C address of the WS2812 controller (`i2c` driver only).",
+    "default": "0xB0"
+  },
+  {
+    "path": "ws2812.i2c_timeout",
+    "type": "Number",
+    "required": false,
+    "description": "The I²C timeout in milliseconds (`i2c` driver only).",
+    "default": "`100` (100 ms)"
+  },
+  {
+    "path": "ws2812.rgbw",
+    "type": "Boolean",
+    "required": false,
+    "description": "Enable RGBW LEDs.",
+    "default": false
+  }
+]
