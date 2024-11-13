@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "$id": "qmk.keyboard.v1",
   "title": "Keyboard Information",
-  "definitions": {
+  "$defs": {
     "encoder_config": {
       "type": "object",
       "properties": {
@@ -18,7 +18,7 @@
             "required": ["pin_a", "pin_b"],
             "properties": {
               "pin_a": {
-                "$ref": "qmk.definitions.v1#/mcu_pin",
+                "$ref": "./definitions.schema.json#/mcu_pin",
                 "description": "The GPIO pin connected to the encoder's `A` pin."
               },
               "pin_b": {
@@ -468,7 +468,7 @@
       "examples": [["60_ansi", "60_iso"]]
     },
     "dip_switch": {
-      "$ref": "#/definitions/dip_switch_config",
+      "$ref": "#/$defs/dip_switch_config",
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -524,7 +524,7 @@
       }
     },
     "encoder": {
-      "$ref": "#/definitions/encoder_config",
+      "$ref": "#/$defs/encoder_config",
       "properties": {
         "enabled": { "type": "boolean" }
       }
@@ -1362,14 +1362,14 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "right": { "$ref": "#/definitions/dip_switch_config" }
+            "right": { "$ref": "#/$defs/dip_switch_config" }
           }
         },
         "encoder": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "right": { "$ref": "#/definitions/encoder_config" }
+            "right": { "$ref": "#/$defs/encoder_config" }
           }
         },
         "handedness": {
