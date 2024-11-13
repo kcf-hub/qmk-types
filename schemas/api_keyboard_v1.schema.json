@@ -1,5 +1,5 @@
 {
-  "$id": "qmk.api.keyboard.v1",
+  "$id": "api_keyboard_v1.schema.json",
   "allOf": [
     { "$ref": "qmk.keyboard.v1" },
     {

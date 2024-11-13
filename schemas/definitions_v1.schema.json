@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
-  "$id": "qmk.definitions.v1",
+  "$id": "definitions_v1.schema.json",
   "title": "Common definitions used across QMK's jsonschemas.",
   "type": "object",
   "bcd_version": {

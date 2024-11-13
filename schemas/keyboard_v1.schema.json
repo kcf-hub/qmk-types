@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
-  "$id": "qmk.keyboard.v1",
+  "$id": "keyboard_v1.schema.json",
   "title": "Keyboard Information",
   "$defs": {
     "encoder_config": {

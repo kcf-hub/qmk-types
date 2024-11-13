@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
-  "$id": "qmk.user_repo.v0",
+  "$id": "user_repo_v0.schema.json",
   "title": "User Repository Information",
   "type": "object",
   "required": ["userspace_version"],

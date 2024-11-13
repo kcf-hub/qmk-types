@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
-  "$id": "qmk.keycodes.v1",
+  "$id": "schemas/keycodes_v1.schema.json",
   "title": "Keycode Information",
   "type": "object",
   "$defs": {

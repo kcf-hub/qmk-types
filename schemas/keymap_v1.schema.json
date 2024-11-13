@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
-  "$id": "qmk.keymap.v1",
+  "$id": "keymap_v1.schema.json",
   "title": "Keymap Information",
   "type": "object",
   "properties": {
