@@ -31,7 +31,8 @@
         "$ref": "qmk.definitions.v1#/hex_number_4d"
       },
       "additionalProperties": {
-        "type": "object", // use 'qmk.definitions.v1#/keycode_decl' when problem keycodes are removed
+        "$comment": "use 'qmk.definitions.v1#/keycode_decl' when problem keycodes are removed",
+        "type": "object",
         "required": ["key"],
         "properties": {
           "key": { "$ref": "#/definitions/define" },
