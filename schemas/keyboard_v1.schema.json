@@ -222,8 +222,8 @@
           "properties": {
             "on_state": {
               "$ref": "definitions_v1.schema.json#/bit",
-              "default": "`1` (on = high)",
-              "description": "The logical GPIO state required to turn the speaker on."
+              "default": 1,
+              "description": "The logical GPIO state required to turn the speaker on. (1 = on = high)"
             },
             "pin": {
               "$ref": "definitions_v1.schema.json#/mcu_pin",
@@ -264,8 +264,7 @@
             },
             "brightness": {
               "$ref": "definitions_v1.schema.json#/unsigned_int_8",
-              "default": "`max_brightness`",
-              "description": "The default brightness level."
+              "description": "The default brightness level. Defaults to max_brightness."
             }
           }
         },
@@ -276,7 +275,7 @@
         },
         "breathing_period": {
           "$ref": "definitions_v1.schema.json#/unsigned_int_8",
-          "default": "`6` (6 seconds)",
+          "default": 6,
           "description": "The length of one backlight breathing cycle in seconds."
         },
         "levels": {
@@ -301,8 +300,8 @@
         },
         "on_state": {
           "$ref": "definitions_v1.schema.json#/bit",
-          "default": "`1` (on = high)",
-          "description": "The logical GPIO state required to turn the LEDs on."
+          "default": 1,
+          "description": "The logical GPIO state required to turn the LEDs on. (1 = on = high)"
         },
         "as_caps_lock": {
           "type": "boolean",
@@ -416,7 +415,7 @@
     },
     "debounce": {
       "$ref": "definitions_v1.schema.json#/unsigned_int",
-      "default": "`5` (5 ms)",
+      "default": 5,
       "description": "The debounce time in milliseconds."
     },
     "caps_word": {
@@ -440,7 +439,7 @@
         },
         "idle_timeout": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`5000` (5 seconds)",
+          "default": 5000,
           "description": "The amount of time before Caps Word automatically deactivates in milliseconds."
         },
         "invert_on_shift": {
@@ -456,7 +455,7 @@
         "count": { "$ref": "definitions_v1.schema.json#/unsigned_int" },
         "term": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`50` (50 ms)",
+          "default": 50,
           "description": "The amount of time to recognize a combo in milliseconds."
         }
       }
@@ -563,8 +562,8 @@
         },
         "on_state": {
           "$ref": "definitions_v1.schema.json#/bit",
-          "default": "`1` (on = high)",
-          "description": "The logical GPIO state required to turn the LEDs on."
+          "default": 1,
+          "description": "The logical GPIO state required to turn the LEDs on. (1 =on = high)"
         }
       }
     },
@@ -644,8 +643,8 @@
                   "minItems": 2,
                   "maxItems": 2,
                   "items": { "type": "integer", "minimum": 0 },
-                  "examples": ["`[0, 4]` (row 0, column 4)"],
-                  "description": "The matrix position for the key."
+                  "examples": [[0, 4]],
+                  "description": "The matrix position for the key. Example (row 0, column 4) = [0, 4]"
                 },
                 "r": {
                   "$ref": "definitions_v1.schema.json#/signed_decimal",
@@ -662,12 +661,12 @@
                 "h": {
                   "$ref": "definitions_v1.schema.json#/key_unit",
                   "description": "The height of the key, in key units.",
-                  "default": "`1` (1u)"
+                  "default": 1
                 },
                 "w": {
                   "$ref": "definitions_v1.schema.json#/key_unit",
                   "description": "The width of the key, in key units.",
-                  "default": "`1` (1u)"
+                  "default": 1
                 },
                 "x": {
                   "$ref": "definitions_v1.schema.json#/key_unit",
@@ -709,7 +708,7 @@
         },
         "timeout": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`300` (300 ms)",
+          "default": 300,
           "description": "The amount of time to complete a leader sequence in milliseconds."
         }
       }
@@ -735,12 +734,12 @@
         },
         "input_pressed_state": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`0` (pressed = low)",
-          "description": "The logical GPIO state of the input pins when a key is pressed."
+          "default": 0,
+          "description": "The logical GPIO state of the input pins when a key is pressed. (0 = pressed = low)"
         },
         "io_delay": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`30` (30 µs)",
+          "default": 30,
           "description": "The amount of time to wait between row/col selection and col/row pin reading, in microseconds."
         },
         "direct": {
@@ -827,8 +826,7 @@
             },
             "val": {
               "$ref": "definitions_v1.schema.json#/unsigned_int_8",
-              "default": "`max_brightness`",
-              "description": "The default brightness level."
+              "description": "The default brightness level. Defaults to max_brightness"
             },
             "speed": {
               "$ref": "definitions_v1.schema.json#/unsigned_int_8",
@@ -872,8 +870,8 @@
         },
         "timeout": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`0` (no timeout)",
-          "description": "The LED activity timeout in milliseconds."
+          "default": 0,
+          "description": "The LED activity timeout in milliseconds. (0 = no timeout)"
         },
         "val_steps": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
@@ -892,8 +890,7 @@
         },
         "led_process_limit": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`led_count / 5`",
-          "description": "Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)."
+          "description": "Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness). Defaults to `led_count / 5`."
         },
         "react_on_keyup": {
           "type": "boolean",
@@ -976,8 +973,7 @@
             },
             "val": {
               "$ref": "definitions_v1.schema.json#/unsigned_int_8",
-              "default": "`max_brightness`",
-              "description": "The default brightness level."
+              "description": "The default brightness level. Defaults to `max_brightness`."
             },
             "speed": {
               "$ref": "definitions_v1.schema.json#/unsigned_int_8",
@@ -1023,8 +1019,8 @@
         },
         "timeout": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`0` (no timeout)",
-          "description": "The LED activity timeout in milliseconds."
+          "default": 0,
+          "description": "The LED activity timeout in milliseconds. (0 = no timeout)"
         },
         "hue_steps": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
@@ -1053,8 +1049,7 @@
         },
         "led_process_limit": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`led_count / 5`",
-          "description": "Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)."
+          "description": "Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness). Defaults to `led_count / 5`."
         },
         "react_on_keyup": {
           "type": "boolean",
@@ -1137,8 +1132,7 @@
             },
             "val": {
               "$ref": "definitions_v1.schema.json#/unsigned_int_8",
-              "default": "`max_brightness`",
-              "description": "The default brightness level."
+              "description": "The default brightness level. Defaults to `max_brightness`."
             },
             "speed": {
               "$ref": "definitions_v1.schema.json#/unsigned_int_8",
@@ -1242,12 +1236,12 @@
         },
         "unlock_timeout": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`5000` (5 seconds)",
+          "default": 5000,
           "description": "Timeout for the user to perform the unlock sequence. Set to `0` to disable."
         },
         "idle_timeout": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`60000` (1 minute)",
+          "default": 60000,
           "description": "Timeout while unlocked before returning to the locked state. Set to `0` to disable."
         },
         "unlock_sequence": {
@@ -1510,12 +1504,12 @@
             },
             "polling_interval": {
               "$ref": "definitions_v1.schema.json#/unsigned_int",
-              "default": "`10` (10 ms)",
+              "default": 10,
               "description": "The polling frequency in milliseconds."
             },
             "timeout": {
               "$ref": "definitions_v1.schema.json#/unsigned_int",
-              "default": "`2000` (2 seconds)",
+              "default": 2000,
               "description": "The amount of time to wait for a USB connection in milliseconds."
             }
           }
@@ -1552,7 +1546,7 @@
         "retro_per_key": { "type": "boolean", "default": false },
         "term": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`200` (200 ms)"
+          "default": 200
         },
         "term_per_key": { "type": "boolean", "default": false },
         "toggle": { "$ref": "definitions_v1.schema.json#/unsigned_int", "default": 5 }
@@ -1588,8 +1582,8 @@
         },
         "max_power": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`500` (500 mA)",
-          "description": "The maximum current draw the host should expect from the device. This does not control the actual current usage."
+          "default": 500,
+          "description": "The maximum current draw in milli ampere (mA) the host should expect from the device. This does not control the actual current usage."
         },
         "no_startup_check": {
           "type": "boolean",
@@ -1598,8 +1592,8 @@
         },
         "polling_interval": {
           "$ref": "definitions_v1.schema.json#/unsigned_int_8",
-          "default": "`1` (1 ms/1000 Hz)",
-          "description": "The frequency at which the host should poll the keyboard for reports."
+          "default": 1,
+          "description": "The frequency at which the host should poll the keyboard for reports. (1 = 1ms = 1000Hz)"
         },
         "shared_endpoint": {
           "type": "object",
@@ -1619,8 +1613,8 @@
         },
         "suspend_wakeup_delay": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`0` (disabled)",
-          "description": "The amount of time to wait after sending a wakeup packet, in milliseconds."
+          "default": 0,
+          "description": "The amount of time to wait after sending a wakeup packet, in milliseconds. (0 = disabled)"
         },
         "wait_for_enumeration": {
           "type": "boolean",
@@ -1636,12 +1630,12 @@
         "keys_per_scan": { "$ref": "definitions_v1.schema.json#/unsigned_int_8" },
         "tap_keycode_delay": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`0` (no delay)",
-          "description": "The delay between keydown and keyup for tap events in milliseconds."
+          "default": 0,
+          "description": "The delay between keydown and keyup for tap events in milliseconds. (0 = no delay)"
         },
         "tap_capslock_delay": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`80` (80 ms)",
+          "default": 80,
           "description": "The delay between keydown and keyup for Caps Lock tap events in milliseconds."
         },
         "locking": {
@@ -1710,7 +1704,7 @@
         },
         "i2c_timeout": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
-          "default": "`100` (100 ms)",
+          "default": 100,
           "description": "The I²C timeout in milliseconds (`i2c` driver only)."
         }
       }
