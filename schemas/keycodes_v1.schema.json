@@ -28,10 +28,10 @@
     "keycodes": {
       "type": "object",
       "propertyNames": {
-        "$ref": "qmk.definitions.v1#/hex_number_4d"
+        "$ref": "definitions_v1.schema.json#/hex_number_4d"
       },
       "additionalProperties": {
-        "$comment": "use 'qmk.definitions.v1#/keycode_decl' when problem keycodes are removed",
+        "$comment": "use 'definitions_v1.schema.json#/keycode_decl' when problem keycodes are removed",
         "type": "object",
         "required": ["key"],
         "properties": {

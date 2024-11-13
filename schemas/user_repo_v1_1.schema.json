@@ -6,9 +6,9 @@
   "$defs": {
     "build_target": {
       "oneOf": [
-        { "$ref": "qmk.definitions.v1#/keyboard_keymap_tuple" },
-        { "$ref": "qmk.definitions.v1#/keyboard_keymap_env" },
-        { "$ref": "qmk.definitions.v1#/json_file_path" }
+        { "$ref": "definitions_v1.schema.json#/keyboard_keymap_tuple" },
+        { "$ref": "definitions_v1.schema.json#/keyboard_keymap_env" },
+        { "$ref": "definitions_v1.schema.json#/json_file_path" }
       ]
     }
   },
