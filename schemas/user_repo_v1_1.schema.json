@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema#",
+  "$id": "user_repo_v1_1.schema.json",
+  "title": "User Repository Information",
+  "type": "object",
+  "$defs": {
+    "build_target": {
+      "oneOf": [
+        { "$ref": "definitions_v1.schema.json#/keyboard_keymap_tuple" },
+        { "$ref": "definitions_v1.schema.json#/keyboard_keymap_env" },
+        { "$ref": "definitions_v1.schema.json#/json_file_path" }
+      ]
+    }
+  },
+  "required": ["userspace_version", "build_targets"],
+  "properties": {
+    "userspace_version": {
+      "type": "string",
+      "enum": ["1.1"]
+    },
+    "build_targets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/build_target"
+      }
+    }
+  }
+}

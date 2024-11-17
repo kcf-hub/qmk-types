@@ -1,0 +1,1713 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema#",
+  "$id": "keyboard_v1.schema.json",
+  "title": "Keyboard Information",
+  "$defs": {
+    "encoder_config": {
+      "type": "object",
+      "properties": {
+        "driver": {
+          "type": "string",
+          "enum": ["custom", "quadrature"]
+        },
+        "rotary": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["pin_a", "pin_b"],
+            "properties": {
+              "pin_a": {
+                "$ref": "definitions_v1.schema.json#/mcu_pin",
+                "description": "The GPIO pin connected to the encoder's `A` pin."
+              },
+              "pin_b": {
+                "$ref": "definitions_v1.schema.json#/mcu_pin",
+                "description": "The GPIO pin connected to the encoder's `B` pin."
+              },
+              "resolution": {
+                "$ref": "definitions_v1.schema.json#/unsigned_int",
+                "default": 4,
+                "description": "The number of edge transitions on both pins required to register an input."
+              }
+            }
+          },
+          "description": "A list of encoder objects."
+        }
+      }
+    },
+    "dip_switch_config": {
+      "type": "object",
+      "properties": {
+        "pins": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin_array",
+          "description": "A list of GPIO pins connected to the MCU."
+        }
+      }
+    }
+  },
+  "type": "object",
+  "not": {
+    "$comment": "reject via keys...",
+    "required": ["vendorId", "productId"]
+  },
+  "properties": {
+    "keyboard_name": {
+      "$ref": "definitions_v1.schema.json#/text_identifier",
+      "description": "A free-form text string describing the keyboard. This will be used as the USB product string. Can include Unicode characters, escaped to ASCII eg. `\\u03A8` (Ψ).",
+      "examples": ["Clueboard 66%"]
+    },
+    "keyboard_folder": { "$ref": "definitions_v1.schema.json#/keyboard" },
+    "maintainer": {
+      "$ref": "definitions_v1.schema.json#/text_identifier",
+      "description": "GitHub username of the maintainer, or `qmk` for community maintained boards.",
+      "examples": ["skullydazed"]
+    },
+    "manufacturer": {
+      "$ref": "definitions_v1.schema.json#/text_identifier",
+      "description": "A free-form text string describing the keyboard's manufacturer. This will be used as the USB manufacturer string. Can include Unicode characters, escaped to ASCII eg. `\\u03A8` (Ψ).",
+      "examples": ["Clueboard"]
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "A URL to the keyboard's product page, [QMK.fm/keyboards](https://qmk.fm/keyboards) page, or other page describing information about the keyboard.",
+      "examples": ["https://clueboard.co"]
+    },
+    "development_board": {
+      "type": "string",
+      "enum": [
+        "promicro",
+        "elite_c",
+        "elite_pi",
+        "proton_c",
+        "kb2040",
+        "promicro_rp2040",
+        "blok",
+        "michi",
+        "bit_c_pro",
+        "stemcell",
+        "bluepill",
+        "blackpill_f401",
+        "blackpill_f411",
+        "bonsai_c4",
+        "helios",
+        "liatris",
+        "imera"
+      ],
+      "description": "The microcontroller development board, if applicable.",
+      "examples": ["promicro"]
+    },
+    "pin_compatible": {
+      "type": "string",
+      "enum": ["promicro", "elite_c"],
+      "description": "The form factor of the development board, if applicable. Must be one of `elite_c`, `promicro`."
+    },
+    "processor": {
+      "type": "string",
+      "enum": [
+        "cortex-m0",
+        "cortex-m0plus",
+        "cortex-m3",
+        "cortex-m4",
+        "cortex-m7",
+        "cortex-m23",
+        "cortex-m33",
+        "cortex-m35p",
+        "cortex-m55",
+        "cortex-m85",
+        "MKL26Z64",
+        "MK20DX128",
+        "MK20DX256",
+        "MK64FX512",
+        "MK66FX1M0",
+        "RP2040",
+        "STM32F042",
+        "STM32F072",
+        "STM32F103",
+        "STM32F303",
+        "STM32F401",
+        "STM32F405",
+        "STM32F407",
+        "STM32F411",
+        "STM32F446",
+        "STM32G431",
+        "STM32G474",
+        "STM32H723",
+        "STM32H733",
+        "STM32L412",
+        "STM32L422",
+        "STM32L432",
+        "STM32L433",
+        "STM32L442",
+        "STM32L443",
+        "GD32VF103",
+        "WB32F3G71",
+        "WB32FQ95",
+        "atmega16u2",
+        "atmega32u2",
+        "atmega16u4",
+        "atmega32u4",
+        "at90usb162",
+        "at90usb646",
+        "at90usb647",
+        "at90usb1286",
+        "at90usb1287",
+        "atmega32a",
+        "atmega328p",
+        "atmega328",
+        "attiny85",
+        "unknown"
+      ],
+      "description": "The microcontroller in use on the keyboard. Required if `development_board` is not specified."
+    },
+    "apa102": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data_pin": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "description": "The GPIO pin connected to `DI` on the first LED in the chain."
+        },
+        "clock_pin": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "description": "The GPIO pin connected to `CI` on the first LED in the chain."
+        },
+        "default_brightness": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 31,
+          "default": 31,
+          "description": "The initial global brightness level (independent of the RGB data), from 0 to 31."
+        }
+      }
+    },
+    "audio": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "default": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "on": {
+              "type": "boolean",
+              "default": true,
+              "description": "The default audio enabled state."
+            },
+            "clicky": {
+              "type": "boolean",
+              "default": true,
+              "description": "The default audio clicky enabled state."
+            }
+          }
+        },
+        "driver": {
+          "type": "string",
+          "enum": ["dac_additive", "dac_basic", "pwm_software", "pwm_hardware"],
+          "description": "The driver to use. Must be one of `dac_additive`, `dac_basic`, `pwm_software`, `pwm_hardware`."
+        },
+        "macro_beep": {
+          "type": "boolean",
+          "default": false,
+          "description": "Play a short beep for `\\a` (ASCII `BEL`) characters in Send String macros."
+        },
+        "pins": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin_array",
+          "description": "The GPIO pin(s) connected to the speaker(s)."
+        },
+        "power_control": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "on_state": {
+              "$ref": "definitions_v1.schema.json#/bit",
+              "default": 1,
+              "description": "The logical GPIO state required to turn the speaker on. (1 = on = high)"
+            },
+            "pin": {
+              "$ref": "definitions_v1.schema.json#/mcu_pin",
+              "description": "The GPIO pin connected to speaker power circuit."
+            }
+          }
+        },
+        "voices": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use multiple audio voices."
+        }
+      }
+    },
+    "backlight": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "driver": {
+          "type": "string",
+          "enum": ["custom", "pwm", "software", "timer"],
+          "default": "pwm",
+          "description": "The driver to use. Must be one of `custom`, `pwm`, `software`, `timer`."
+        },
+        "default": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "on": {
+              "type": "boolean",
+              "default": true,
+              "description": "The default backlight enabled state."
+            },
+            "breathing": {
+              "type": "boolean",
+              "default": false,
+              "description": "The default backlight breathing state."
+            },
+            "brightness": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+              "description": "The default brightness level. Defaults to max_brightness."
+            }
+          }
+        },
+        "breathing": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether backlight breathing is enabled."
+        },
+        "breathing_period": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+          "default": 6,
+          "description": "The length of one backlight breathing cycle in seconds."
+        },
+        "levels": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 31,
+          "default": 3,
+          "description": "The number of brightness levels (excluding off), from 1 to 31."
+        },
+        "max_brightness": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+          "default": 255,
+          "description": "The maximum PWM value which brightness is scaled to, from 0 to 255."
+        },
+        "pin": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "description": "The GPIO pin connected to the backlight circuit."
+        },
+        "pins": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin_array",
+          "description": "A list of GPIO pins connected to the backlight LEDs (`software` and `timer` drivers only)."
+        },
+        "on_state": {
+          "$ref": "definitions_v1.schema.json#/bit",
+          "default": 1,
+          "description": "The logical GPIO state required to turn the LEDs on. (1 = on = high)"
+        },
+        "as_caps_lock": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use the backlight as a Caps Lock indicator."
+        }
+      }
+    },
+    "bluetooth": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "driver": {
+          "type": "string",
+          "enum": ["bluefruit_le", "custom", "rn42"],
+          "description": "The driver to use. Must be one of `custom`, `bluefruit_le`, `rn42`."
+        }
+      }
+    },
+    "bootmagic": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enables the Bootmagic feature."
+        },
+        "matrix": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "integer", "minimum": 0 },
+          "default": [0, 0],
+          "description": "The matrix position of the key to check during startup. This should generally be set to the (physically) top left key."
+        }
+      }
+    },
+    "board": {
+      "type": "string",
+      "minLength": 2,
+      "pattern": "^[a-zA-Z_][0-9a-zA-Z_]*$",
+      "description": "Override the default ChibiOS board name (ARM-based keyboards only).",
+      "examples": ["BLACKPILL_STM32_F411"]
+    },
+    "bootloader": {
+      "type": "string",
+      "enum": [
+        "apm32-dfu",
+        "atmel-dfu",
+        "bootloadhid",
+        "caterina",
+        "custom",
+        "gd32v-dfu",
+        "halfkay",
+        "kiibohd",
+        "lufa-dfu",
+        "lufa-ms",
+        "md-boot",
+        "qmk-dfu",
+        "qmk-hid",
+        "rp2040",
+        "stm32-dfu",
+        "stm32duino",
+        "tinyuf2",
+        "uf2boot",
+        "unknown",
+        "usbasploader",
+        "wb32-dfu"
+      ],
+      "description": "The bootloader in use on the keyboard. Required if `development_board` is not specified."
+    },
+    "bootloader_instructions": {
+      "type": "string",
+      "description": "Instructions for putting the keyboard into a mode that allows for firmware flashing.",
+      "examples": ["Press the button marked RESET on the back of the PCB"]
+    },
+    "build": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "debounce_type": {
+          "type": "string",
+          "enum": [
+            "asym_eager_defer_pk",
+            "custom",
+            "sym_defer_g",
+            "sym_defer_pk",
+            "sym_defer_pr",
+            "sym_eager_pk",
+            "sym_eager_pr"
+          ],
+          "description": "The debounce algorithm to use. Must be one of `asym_eager_defer_pk`, `custom`, `sym_defer_g`, `sym_defer_pk`, `sym_defer_pr`, `sym_eager_pk`, `sym_eager_pr`."
+        },
+        "firmware_format": {
+          "type": "string",
+          "enum": ["bin", "hex", "uf2"],
+          "description": "The format of the final output binary. Must be one of `bin`, `hex`, `uf2`."
+        },
+        "lto": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable Link-Time Optimization."
+        }
+      }
+    },
+    "diode_direction": {
+      "type": "string",
+      "enum": ["COL2ROW", "ROW2COL"],
+      "description": "Which way the diodes are \"pointing\". Unused for `matrix_pins.direct`. Must be one of `COL2ROW`, `ROW2COL`."
+    },
+    "debounce": {
+      "$ref": "definitions_v1.schema.json#/unsigned_int",
+      "default": 5,
+      "description": "The debounce time in milliseconds."
+    },
+    "caps_word": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enables the Caps Word feature."
+        },
+        "both_shifts_turns_on": {
+          "type": "boolean",
+          "default": false,
+          "description": "Activate Caps Word by pressing both Shift keys."
+        },
+        "double_tap_shift_turns_on": {
+          "type": "boolean",
+          "default": false,
+          "description": "Activate Caps Word by pressing Left Shift twice."
+        },
+        "idle_timeout": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 5000,
+          "description": "The amount of time before Caps Word automatically deactivates in milliseconds."
+        },
+        "invert_on_shift": {
+          "type": "boolean",
+          "default": false,
+          "description": "Invert shift state instead of deactivating Caps Word when Shift is pressed."
+        }
+      }
+    },
+    "combo": {
+      "type": "object",
+      "properties": {
+        "count": { "$ref": "definitions_v1.schema.json#/unsigned_int" },
+        "term": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 50,
+          "description": "The amount of time to recognize a combo in milliseconds."
+        }
+      }
+    },
+    "community_layouts": {
+      "type": "array",
+      "items": { "$ref": "definitions_v1.schema.json#/filename" },
+      "description": "A list of community layouts supported by the keyboard.",
+      "examples": [["60_ansi", "60_iso"]]
+    },
+    "dip_switch": {
+      "$ref": "#/$defs/dip_switch_config",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable the DIP Switches feature."
+        },
+        "matrix_grid": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": { "type": "integer", "minimum": 0 }
+          },
+          "description": "A list of matrix locations in the key matrix.",
+          "examples": [
+            [
+              [0, 6],
+              [1, 6],
+              [2, 6]
+            ]
+          ]
+        }
+      }
+    },
+    "eeprom": {
+      "properties": {
+        "driver": {
+          "type": "string",
+          "default": "vendor",
+          "description": "The EEPROM backend to use. Must be one of `custom`, `i2c`, `legacy_stm32_flash`, `spi`, `transient`, `vendor`, `wear_leveling`."
+        },
+        "wear_leveling": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "driver": {
+              "type": "string",
+              "enum": ["custom", "embedded_flash", "legacy", "rp2040_flash", "spi_flash"],
+              "description": "The driver to use. Must be one of `embedded_flash`, `legacy`, `rp2040_flash`, `spi_flash`, `custom`."
+            },
+            "backing_size": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int",
+              "description": "Number of bytes used by the wear-leveling algorithm for its underlying storage, and needs to be a multiple of the logical size."
+            },
+            "logical_size": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int",
+              "description": "Number of bytes “exposed” to the rest of QMK and denotes the size of the usable EEPROM."
+            }
+          }
+        }
+      }
+    },
+    "encoder": {
+      "$ref": "#/$defs/encoder_config",
+      "properties": {
+        "enabled": { "type": "boolean" }
+      }
+    },
+    "features": {
+      "$ref": "definitions_v1.schema.json#/boolean_array",
+      "propertyNames": { "$ref": "definitions_v1.schema.json#/snake_case" },
+      "not": {
+        "required": ["lto"]
+      },
+      "description": "A dictionary of features to enable or disable.",
+      "examples": [{ "rgb_matrix": true, "rgblight": false }]
+    },
+    "indicators": {
+      "type": "object",
+      "properties": {
+        "caps_lock": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "description": "The GPIO pin connected to the Caps Lock LED."
+        },
+        "num_lock": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "description": "The GPIO pin connected to the Num Lock LED."
+        },
+        "scroll_lock": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "description": "The GPIO pin connected to the Scroll Lock LED."
+        },
+        "compose": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "description": "The GPIO pin connected to the Compose LED."
+        },
+        "kana": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "description": "The GPIO pin connected to the Kana LED."
+        },
+        "on_state": {
+          "$ref": "definitions_v1.schema.json#/bit",
+          "default": 1,
+          "description": "The logical GPIO state required to turn the LEDs on. (1 =on = high)"
+        }
+      }
+    },
+    "joystick": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "driver": { "type": "string" },
+        "button_count": { "$ref": "definitions_v1.schema.json#/unsigned_int" },
+        "axis_resolution": { "$ref": "definitions_v1.schema.json#/unsigned_int" },
+        "axes": {
+          "type": "object",
+          "propertyNames": {
+            "enum": ["x", "y", "z", "rx", "ry", "rz"]
+          },
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "input_pin": { "$ref": "definitions_v1.schema.json#/mcu_pin" },
+                  "low": { "$ref": "definitions_v1.schema.json#/unsigned_int" },
+                  "rest": { "$ref": "definitions_v1.schema.json#/unsigned_int" },
+                  "high": { "$ref": "definitions_v1.schema.json#/unsigned_int" }
+                }
+              },
+              {
+                "type": "string",
+                "enum": ["virtual"]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "keycodes": { "$ref": "definitions_v1.schema.json#/keycode_decl_array" },
+    "layout_aliases": {
+      "type": "object",
+      "additionalProperties": { "$ref": "definitions_v1.schema.json#/layout_macro" },
+      "description": "A mapping of layout aliases to layout definitions.",
+      "examples": [
+        {
+          "LAYOUT_ansi": "LAYOUT_60_ansi",
+          "LAYOUT_iso": "LAYOUT_60_iso"
+        }
+      ]
+    },
+    "layouts": {
+      "type": "object",
+      "propertyNames": { "$ref": "definitions_v1.schema.json#/layout_macro" },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "filename": { "type": "string" },
+          "c_macro": { "type": "boolean" },
+          "json_layout": { "type": "boolean" },
+          "layout": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["x", "y"],
+              "properties": {
+                "encoder": {
+                  "$ref": "definitions_v1.schema.json#/unsigned_int",
+                  "description": "The index of an encoder this key should be linked to"
+                },
+                "label": {
+                  "type": "string",
+                  "pattern": "^[^\\n]*$",
+                  "examples": ["Escape"],
+                  "description": "What to name the key. This is *not* a key assignment as in the keymap, but should usually correspond to the keycode for the first layer of the default keymap."
+                },
+                "matrix": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": { "type": "integer", "minimum": 0 },
+                  "examples": [[0, 4]],
+                  "description": "The matrix position for the key. Example (row 0, column 4) = [0, 4]"
+                },
+                "r": {
+                  "$ref": "definitions_v1.schema.json#/signed_decimal",
+                  "description": "The rotation angle in degrees. Currently not implemented."
+                },
+                "rx": {
+                  "$ref": "definitions_v1.schema.json#/unsigned_decimal",
+                  "description": "The absolute X position of the rotation axis. Currently not implemented."
+                },
+                "ry": {
+                  "$ref": "definitions_v1.schema.json#/unsigned_decimal",
+                  "description": "The absolute Y position of the rotation axis. Currently not implemented."
+                },
+                "h": {
+                  "$ref": "definitions_v1.schema.json#/key_unit",
+                  "description": "The height of the key, in key units.",
+                  "default": 1
+                },
+                "w": {
+                  "$ref": "definitions_v1.schema.json#/key_unit",
+                  "description": "The width of the key, in key units.",
+                  "default": 1
+                },
+                "x": {
+                  "$ref": "definitions_v1.schema.json#/key_unit",
+                  "description": "The absolute position of the key in the horizontal axis, in key units."
+                },
+                "y": {
+                  "$ref": "definitions_v1.schema.json#/key_unit",
+                  "description": "The absolute position of the key in the vertical axis, in key units."
+                }
+              }
+            },
+            "description": "A list of key dictionaries comprising the layout. Each key dictionary contains:"
+          }
+        }
+      },
+      "description": "A dictionary of layouts supported by the keyboard."
+    },
+    "haptic": {
+      "type": "object",
+      "properties": {
+        "driver": {
+          "type": "string",
+          "enum": ["drv2605l", "solenoid"]
+        }
+      }
+    },
+    "leader_key": {
+      "type": "object",
+      "properties": {
+        "timing": {
+          "type": "boolean",
+          "default": false,
+          "description": "Reset the `timeout` on each keypress."
+        },
+        "strict_processing": {
+          "type": "boolean",
+          "default": false,
+          "description": "Do not extract the tap keycodes from Layer-Tap and Mod-Tap key events."
+        },
+        "timeout": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 300,
+          "description": "The amount of time to complete a leader sequence in milliseconds."
+        }
+      }
+    },
+    "matrix_pins": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "custom": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to use a custom matrix scanning implementation."
+        },
+        "custom_lite": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to use a \"lite\" custom matrix scanning implementation."
+        },
+        "ghost": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the matrix has no anti-ghosting diodes."
+        },
+        "input_pressed_state": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 0,
+          "description": "The logical GPIO state of the input pins when a key is pressed. (0 = pressed = low)"
+        },
+        "io_delay": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 30,
+          "description": "The amount of time to wait between row/col selection and col/row pin reading, in microseconds."
+        },
+        "direct": {
+          "type": "array",
+          "items": { "$ref": "definitions_v1.schema.json#/mcu_pin_array" },
+          "description": "A 2-dimensional list of GPIO pins connected to each keyswitch, forming the \"matrix\" rows and columns.",
+          "examples": [
+            [
+              ["A0", "A1", "A2"],
+              ["B0", "B1", "B2"],
+              ["C0", "C1", "C2"]
+            ]
+          ]
+        },
+        "cols": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin_array",
+          "description": "A list of GPIO pins connected to the matrix columns.",
+          "examples": [["A0", "A1", "A2"]]
+        },
+        "rows": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin_array",
+          "description": "A list of GPIO pins connected to the matrix rows.",
+          "examples": [["B0", "B1", "B2"]]
+        }
+      }
+    },
+    "mouse_key": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enables the Mouse Keys feature."
+        },
+        "delay": { "$ref": "definitions_v1.schema.json#/unsigned_int_8" },
+        "interval": { "$ref": "definitions_v1.schema.json#/unsigned_int_8" },
+        "max_speed": { "$ref": "definitions_v1.schema.json#/unsigned_int_8" },
+        "time_to_max": { "$ref": "definitions_v1.schema.json#/unsigned_int_8" },
+        "wheel_delay": { "$ref": "definitions_v1.schema.json#/unsigned_int_8" }
+      }
+    },
+    "oneshot": {
+      "type": "object",
+      "properties": {
+        "tap_toggle": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "description": "The number of times to tap the key in order to hold it."
+        },
+        "timeout": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "description": "The amount of time before the key is released in milliseconds."
+        }
+      }
+    },
+    "led_matrix": {
+      "type": "object",
+      "properties": {
+        "animations": {
+          "type": "object",
+          "propertyNames": { "$ref": "definitions_v1.schema.json#/snake_case" },
+          "additionalProperties": { "type": "boolean" },
+          "description": "A dictionary of effects to enable or disable. Effects which are absent default to `false`.",
+          "examples": [
+            {
+              "alphas_mods": true,
+              "breathing": true,
+              "cycle_left_right": false
+            }
+          ]
+        },
+        "default": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "on": {
+              "type": "boolean",
+              "default": true,
+              "description": "The default enabled state."
+            },
+            "animation": {
+              "type": "string",
+              "default": "solid",
+              "description": "The default effect. Must be one of `led_matrix.animations`"
+            },
+            "val": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+              "description": "The default brightness level. Defaults to max_brightness"
+            },
+            "speed": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+              "default": 128,
+              "description": "The default animation speed."
+            }
+          }
+        },
+        "driver": {
+          "type": "string",
+          "enum": [
+            "custom",
+            "is31fl3218",
+            "is31fl3236",
+            "is31fl3729",
+            "is31fl3731",
+            "is31fl3733",
+            "is31fl3736",
+            "is31fl3737",
+            "is31fl3741",
+            "is31fl3742a",
+            "is31fl3743a",
+            "is31fl3745",
+            "is31fl3746a",
+            "snled27351"
+          ],
+          "description": "The driver to use. Must be one of `custom`, `is31fl3218`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `snled27351`."
+        },
+        "center_point": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "$ref": "definitions_v1.schema.json#/unsigned_int_8" },
+          "default": [112, 32],
+          "description": "The centroid (geometric center) of the LEDs. Used for certain effects."
+        },
+        "max_brightness": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+          "default": 255,
+          "description": "The maximum value which brightness is scaled to, from 0 to 255."
+        },
+        "timeout": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 0,
+          "description": "The LED activity timeout in milliseconds. (0 = no timeout)"
+        },
+        "val_steps": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 8,
+          "description": "The number of brightness adjustment steps."
+        },
+        "speed_steps": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 16,
+          "description": "The number of speed adjustment steps."
+        },
+        "led_flush_limit": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 16,
+          "description": "Limits in milliseconds how frequently an animation will update the LEDs."
+        },
+        "led_process_limit": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "description": "Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness). Defaults to `led_count / 5`."
+        },
+        "react_on_keyup": {
+          "type": "boolean",
+          "default": false,
+          "description": "Animations react to keyup instead of keydown."
+        },
+        "sleep": {
+          "type": "boolean",
+          "default": false,
+          "description": "Turn off the LEDs when the host goes to sleep."
+        },
+        "split_count": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "$ref": "definitions_v1.schema.json#/unsigned_int" },
+          "description": "For split keyboards, the number of LEDs on each half.",
+          "examples": [[16, 16]]
+        },
+        "layout": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "matrix": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": { "type": "integer", "minimum": 0 }
+              },
+              "x": { "$ref": "definitions_v1.schema.json#/unsigned_int" },
+              "y": { "$ref": "definitions_v1.schema.json#/unsigned_int" },
+              "flags": { "$ref": "definitions_v1.schema.json#/unsigned_int_8" }
+            }
+          },
+          "description": "List of LED configuration dictionaries. Each dictionary contains:"
+        }
+      }
+    },
+    "rgb_matrix": {
+      "type": "object",
+      "properties": {
+        "animations": {
+          "type": "object",
+          "propertyNames": { "$ref": "definitions_v1.schema.json#/snake_case" },
+          "additionalProperties": { "type": "boolean" },
+          "description": "A dictionary of effects to enable or disable. Effects which are absent default to `false`.",
+          "examples": [
+            {
+              "alphas_mods": true,
+              "breathing": true,
+              "cycle_left_right": false
+            }
+          ]
+        },
+        "default": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "on": {
+              "type": "boolean",
+              "default": true,
+              "description": "The default enabled state."
+            },
+            "animation": {
+              "type": "string",
+              "default": "solid_color",
+              "description": "The default effect. Must be one of `rgb_matrix.animations`"
+            },
+            "hue": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+              "default": 0,
+              "description": "The default hue value."
+            },
+            "sat": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+              "default": 255,
+              "description": "The default saturation value."
+            },
+            "val": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+              "description": "The default brightness level. Defaults to `max_brightness`."
+            },
+            "speed": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+              "default": 128,
+              "description": "The default animation speed."
+            }
+          }
+        },
+        "driver": {
+          "type": "string",
+          "enum": [
+            "aw20216s",
+            "custom",
+            "is31fl3218",
+            "is31fl3236",
+            "is31fl3729",
+            "is31fl3731",
+            "is31fl3733",
+            "is31fl3736",
+            "is31fl3737",
+            "is31fl3741",
+            "is31fl3742a",
+            "is31fl3743a",
+            "is31fl3745",
+            "is31fl3746a",
+            "snled27351",
+            "ws2812"
+          ],
+          "description": "The driver to use. Must be one of `aw20216s`, `custom`, `is31fl3218`, `is31fl3236`, `is31fl3729`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `snled27351`, `ws2812`."
+        },
+        "center_point": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "$ref": "definitions_v1.schema.json#/unsigned_int_8" },
+          "default": [112, 32],
+          "description": "The centroid (geometric center) of the LEDs. Used for certain effects."
+        },
+        "max_brightness": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+          "default": 255,
+          "description": "The maximum value which the HSV \"V\" component is scaled to, from 0 to 255."
+        },
+        "timeout": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 0,
+          "description": "The LED activity timeout in milliseconds. (0 = no timeout)"
+        },
+        "hue_steps": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 8,
+          "description": "The number of hue adjustment steps."
+        },
+        "sat_steps": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 16,
+          "description": "The number of saturation adjustment steps."
+        },
+        "val_steps": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 16,
+          "description": "The number of brightness adjustment steps."
+        },
+        "speed_steps": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 16,
+          "description": "The number of speed adjustment steps."
+        },
+        "led_flush_limit": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 16,
+          "description": "Limits in milliseconds how frequently an animation will update the LEDs."
+        },
+        "led_process_limit": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "description": "Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness). Defaults to `led_count / 5`."
+        },
+        "react_on_keyup": {
+          "type": "boolean",
+          "default": false,
+          "description": "Animations react to keyup instead of keydown."
+        },
+        "sleep": {
+          "type": "boolean",
+          "default": false,
+          "description": "Turn off the LEDs when the host goes to sleep."
+        },
+        "split_count": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "$ref": "definitions_v1.schema.json#/unsigned_int" },
+          "description": "For split keyboards, the number of LEDs on each half.",
+          "examples": [[16, 16]]
+        },
+        "layout": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "matrix": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": { "type": "integer", "minimum": 0 }
+              },
+              "x": { "$ref": "definitions_v1.schema.json#/unsigned_int" },
+              "y": { "$ref": "definitions_v1.schema.json#/unsigned_int" },
+              "flags": { "$ref": "definitions_v1.schema.json#/unsigned_int_8" }
+            }
+          },
+          "description": "List of LED configuration dictionaries. Each dictionary contains:"
+        }
+      }
+    },
+    "rgblight": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "animations": {
+          "type": "object",
+          "propertyNames": { "$ref": "definitions_v1.schema.json#/snake_case" },
+          "additionalProperties": { "type": "boolean" },
+          "description": "A dictionary of effects to enable or disable. Effects which are absent default to `false`.",
+          "examples": [{ "breathing": true, "rainbow_mood": true, "snake": false }]
+        },
+        "brightness_steps": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 17,
+          "description": "The number of brightness adjustment steps."
+        },
+        "default": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "on": {
+              "type": "boolean",
+              "default": true,
+              "description": "The default enabled state."
+            },
+            "animation": {
+              "type": "string",
+              "default": "static_light",
+              "description": "The default effect. Must be one of `rgblight.animations`"
+            },
+            "hue": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+              "default": 0,
+              "description": "The default hue value."
+            },
+            "sat": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+              "default": 255,
+              "description": "The default saturation value."
+            },
+            "val": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+              "description": "The default brightness level. Defaults to `max_brightness`."
+            },
+            "speed": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+              "default": 0,
+              "description": "The default animation speed."
+            }
+          }
+        },
+        "driver": {
+          "type": "string",
+          "enum": ["apa102", "custom", "ws2812"],
+          "default": "ws2812",
+          "description": "The driver to use. Must be one of `apa102`, `custom`, `ws2812`."
+        },
+        "hue_steps": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 8,
+          "description": "The number of hue adjustment steps."
+        },
+        "layers": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "blink": {
+              "type": "boolean",
+              "default": false,
+              "description": "Enable layer blinking API."
+            },
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "description": "Enable RGB Lighting Layers."
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 32,
+              "default": 8,
+              "description": "The maximum layer count, from 1 to 32."
+            },
+            "override_rgb": { "type": "boolean" }
+          }
+        },
+        "led_count": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "description": "The number of LEDs in the chain."
+        },
+        "led_map": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "definitions_v1.schema.json#/unsigned_int" },
+          "description": "Remap LED indices.",
+          "examples": [[4, 3, 2, 1, 0]]
+        },
+        "max_brightness": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+          "default": 255,
+          "description": "The maximum value which the HSV \"V\" component is scaled to, from 0 to 255."
+        },
+        "pin": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "$comment": "Deprecated: use ws2812.pin instead"
+        },
+        "rgbw": {
+          "type": "boolean",
+          "$comment": "Deprecated: use ws2812.rgbw instead"
+        },
+        "saturation_steps": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 17,
+          "description": "The number of saturation adjustment steps."
+        },
+        "sleep": {
+          "type": "boolean",
+          "default": false,
+          "description": "Turn off the LEDs when the host goes to sleep."
+        },
+        "split": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable synchronization between split halves."
+        },
+        "split_count": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "$ref": "definitions_v1.schema.json#/unsigned_int" },
+          "description": "When `rgblight.split` is enabled, the number of LEDs on each half.",
+          "examples": [[10, 10]]
+        }
+      }
+    },
+    "secure": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable the Secure feature."
+        },
+        "unlock_timeout": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 5000,
+          "description": "Timeout for the user to perform the unlock sequence. Set to `0` to disable."
+        },
+        "idle_timeout": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 60000,
+          "description": "Timeout while unlocked before returning to the locked state. Set to `0` to disable."
+        },
+        "unlock_sequence": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": { "type": "integer", "minimum": 0 }
+          },
+          "description": "A list of up to five matrix locations comprising the \"unlock sequence\".",
+          "examples": [
+            [
+              [0, 0],
+              [0, 1],
+              [4, 3]
+            ]
+          ]
+        }
+      }
+    },
+    "stenography": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable the Stenography feature."
+        },
+        "protocol": {
+          "type": "string",
+          "enum": ["all", "geminipr", "txbolt"],
+          "default": "all",
+          "description": "The Steno protocol to use. Must be one of `all`, `geminipr`, `txbolt`."
+        }
+      }
+    },
+    "ps2": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable the PS/2 feature."
+        },
+        "mouse_enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable the PS/2 mouse handling."
+        },
+        "clock_pin": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "description": "The GPIO pin connected to `CLK` on the PS/2 device."
+        },
+        "data_pin": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "description": "The GPIO pin connected to `DATA` on the PS/2 device."
+        },
+        "driver": {
+          "type": "string",
+          "enum": ["busywait", "interrupt", "usart", "vendor"],
+          "default": "busywait",
+          "description": "The PS/2 driver to use. Must be one of `busywait`, `interrupt`, `usart`, `vendor`."
+        }
+      }
+    },
+    "split": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable the Split Keyboard feature."
+        },
+        "bootmagic": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "matrix": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": { "type": "integer", "minimum": 0 }
+            }
+          }
+        },
+        "matrix_pins": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "right": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "direct": {
+                  "type": "array",
+                  "items": { "$ref": "definitions_v1.schema.json#/mcu_pin_array" }
+                },
+                "cols": { "$ref": "definitions_v1.schema.json#/mcu_pin_array" },
+                "rows": { "$ref": "definitions_v1.schema.json#/mcu_pin_array" },
+                "unused": { "$ref": "definitions_v1.schema.json#/mcu_pin_array" }
+              }
+            }
+          }
+        },
+        "dip_switch": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "right": { "$ref": "#/$defs/dip_switch_config" }
+          }
+        },
+        "encoder": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "right": { "$ref": "#/$defs/encoder_config" }
+          }
+        },
+        "handedness": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "pin": {
+              "$ref": "definitions_v1.schema.json#/mcu_pin",
+              "description": "The GPIO pin connected to determine handedness."
+            },
+            "matrix_grid": {
+              "$ref": "definitions_v1.schema.json#/mcu_pin_array",
+              "minItems": 2,
+              "maxItems": 2,
+              "description": "The GPIO pins of the matrix position which determines the handedness.",
+              "examples": [["A1", "B5"]]
+            }
+          }
+        },
+        "soft_serial_pin": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "$comment": "Deprecated: use split.serial.pin instead"
+        },
+        "soft_serial_speed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5,
+          "default": 1,
+          "description": "The protocol speed, from `0` to `5` (`serial` transport protocol only)."
+        },
+        "serial": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "driver": {
+              "type": "string",
+              "enum": ["bitbang", "usart", "vendor"],
+              "default": "bitbang",
+              "description": "The driver to use. Must be one of `bitbang`, `usart`, `vendor`."
+            },
+            "pin": {
+              "$ref": "definitions_v1.schema.json#/mcu_pin",
+              "description": "The GPIO pin to use for transmit and receive."
+            }
+          }
+        },
+        "transport": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "protocol": {
+              "type": "string",
+              "enum": ["custom", "i2c", "serial"],
+              "description": "The split transport protocol to use. Must be one of `custom`, `i2c`, `serial`."
+            },
+            "sync": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "activity": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Mirror the activity timestamps to the secondary half."
+                },
+                "detected_os": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Mirror the [detected OS](features/os_detection) to the secondary half."
+                },
+                "haptic": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Mirror the haptic state and process haptic feedback to the secondary half."
+                },
+                "layer_state": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Mirror the layer state to the secondary half."
+                },
+                "indicators": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Mirror the indicator state to the secondary half."
+                },
+                "matrix_state": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Mirror the main/primary half's matrix state to the secondary half."
+                },
+                "modifiers": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Mirror the modifier state to the secondary half."
+                },
+                "oled": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Mirror the OLED on/off status to the secondary half."
+                },
+                "st7565": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Mirror the ST7565 on/off status to the secondary half."
+                },
+                "wpm": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Mirror the current WPM value to the secondary half."
+                }
+              }
+            },
+            "watchdog": {
+              "type": "boolean",
+              "default": false,
+              "description": "Reboot the secondary half if it loses connection."
+            },
+            "watchdog_timeout": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int",
+              "description": "The amount of time to wait for communication from the primary half in milliseconds."
+            },
+            "sync_matrix_state": {
+              "type": "boolean",
+              "$comment": "Deprecated: use sync.matrix_state instead"
+            },
+            "sync_modifiers": {
+              "type": "boolean",
+              "$comment": "Deprecated: use sync.modifiers instead"
+            }
+          }
+        },
+        "usb_detect": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Detect USB connection when determining split half roles."
+            },
+            "polling_interval": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int",
+              "default": 10,
+              "description": "The polling frequency in milliseconds."
+            },
+            "timeout": {
+              "$ref": "definitions_v1.schema.json#/unsigned_int",
+              "default": 2000,
+              "description": "The amount of time to wait for a USB connection in milliseconds."
+            }
+          }
+        },
+        "main": {
+          "type": "string",
+          "enum": ["eeprom", "left", "matrix_grid", "pin", "right"],
+          "$comment": "Deprecated: use config.h options for now"
+        },
+        "matrix_grid": {
+          "type": "array",
+          "items": { "$ref": "definitions_v1.schema.json#/mcu_pin" },
+          "$comment": "Deprecated: use split.handedness.matrix_grid instead"
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "A list of tags describing the keyboard.",
+      "examples": [["ortho", "split", "rgb"]]
+    },
+    "tapping": {
+      "type": "object",
+      "properties": {
+        "force_hold": { "type": "boolean" },
+        "force_hold_per_key": { "type": "boolean" },
+        "ignore_mod_tap_interrupt": { "type": "boolean" },
+        "hold_on_other_key_press": { "type": "boolean", "default": false },
+        "hold_on_other_key_press_per_key": { "type": "boolean", "default": false },
+        "permissive_hold": { "type": "boolean", "default": false },
+        "permissive_hold_per_key": { "type": "boolean", "default": false },
+        "retro": { "type": "boolean", "default": false },
+        "retro_per_key": { "type": "boolean", "default": false },
+        "term": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 200
+        },
+        "term_per_key": { "type": "boolean", "default": false },
+        "toggle": { "$ref": "definitions_v1.schema.json#/unsigned_int", "default": 5 }
+      }
+    },
+    "usb": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "device_ver": {
+          "$ref": "definitions_v1.schema.json#/hex_number_4d",
+          "$comment": "Deprecated: use device_version instead"
+        },
+        "device_version": {
+          "$ref": "definitions_v1.schema.json#/bcd_version",
+          "description": "A BCD version number in the format `MM.m.r` (up to `99.9.9`).",
+          "examples": ["1.0.0"]
+        },
+        "force_nkro": {
+          "type": "boolean",
+          "default": false,
+          "description": "Force NKRO to be active."
+        },
+        "pid": {
+          "$ref": "definitions_v1.schema.json#/hex_number_4d",
+          "description": "The USB product ID as a four-digit hexadecimal number.",
+          "examples": ["0x23B0"]
+        },
+        "vid": {
+          "$ref": "definitions_v1.schema.json#/hex_number_4d",
+          "description": "The USB vendor ID as a four-digit hexadecimal number.",
+          "examples": ["0xC1ED"]
+        },
+        "max_power": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 500,
+          "description": "The maximum current draw in milli ampere (mA) the host should expect from the device. This does not control the actual current usage."
+        },
+        "no_startup_check": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable USB suspend check after keyboard startup."
+        },
+        "polling_interval": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int_8",
+          "default": 1,
+          "description": "The frequency at which the host should poll the keyboard for reports. (1 = 1ms = 1000Hz)"
+        },
+        "shared_endpoint": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "keyboard": {
+              "type": "boolean",
+              "default": false,
+              "description": "Send keyboard reports through the \"shared\" USB endpoint."
+            },
+            "mouse": {
+              "type": "boolean",
+              "default": true,
+              "description": "Send mouse reports through the \"shared\" USB endpoint."
+            }
+          }
+        },
+        "suspend_wakeup_delay": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 0,
+          "description": "The amount of time to wait after sending a wakeup packet, in milliseconds. (0 = disabled)"
+        },
+        "wait_for_enumeration": {
+          "type": "boolean",
+          "default": false,
+          "description": "Force the keyboard to wait for USB enumeration before starting up."
+        }
+      }
+    },
+    "qmk": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "keys_per_scan": { "$ref": "definitions_v1.schema.json#/unsigned_int_8" },
+        "tap_keycode_delay": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 0,
+          "description": "The delay between keydown and keyup for tap events in milliseconds. (0 = no delay)"
+        },
+        "tap_capslock_delay": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 80,
+          "description": "The delay between keydown and keyup for Caps Lock tap events in milliseconds."
+        },
+        "locking": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "description": "Enable locking switch support."
+            },
+            "resync": {
+              "type": "boolean",
+              "default": false,
+              "description": "Keep switch state consistent with keyboard LED state."
+            }
+          }
+        }
+      }
+    },
+    "qmk_lufa_bootloader": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "esc_output": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "description": "The GPIO pin connected to the designated \"exit bootloader\" key's column (if `COL2ROW`)."
+        },
+        "esc_input": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "description": "The GPIO pin connected to the designated \"exit bootloader\" key's row (if `COL2ROW`)."
+        },
+        "led": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "description": "The GPIO pin connected to an LED to flash."
+        },
+        "speaker": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "description": "The GPIO pin connected to a speaker to click (can also be used for a second LED)."
+        }
+      }
+    },
+    "ws2812": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "driver": {
+          "type": "string",
+          "enum": ["bitbang", "custom", "i2c", "pwm", "spi", "vendor"],
+          "default": "bitbang",
+          "description": "The driver to use. Must be one of `bitbang`, `custom`, `i2c`, `pwm`, `spi`, `vendor`."
+        },
+        "pin": {
+          "$ref": "definitions_v1.schema.json#/mcu_pin",
+          "description": "The GPIO pin connected to `DI` on the first LED in the chain (`bitbang`, `pwm`, `spi` and `vendor` drivers only)."
+        },
+        "rgbw": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable RGBW LEDs."
+        },
+        "i2c_address": {
+          "$ref": "definitions_v1.schema.json#/hex_number_2d",
+          "default": "0xB0",
+          "description": "The I²C address of the WS2812 controller (`i2c` driver only)."
+        },
+        "i2c_timeout": {
+          "$ref": "definitions_v1.schema.json#/unsigned_int",
+          "default": 100,
+          "description": "The I²C timeout in milliseconds (`i2c` driver only)."
+        }
+      }
+    }
+  }
+}
