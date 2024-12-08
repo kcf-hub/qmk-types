@@ -13,3 +13,5 @@ In accordance with the GPL 2 license any changes to the schemas must be document
   - adjust `$id`s and `$ref`s to allow easier use
   - format with prettier
   - add descriptions, examples, and default value for `keyboard_v1.schema.json` (taken from QMKs documentation)
+- @Buckwich 2024-12-08:
+  - sync with QMK upstream repo

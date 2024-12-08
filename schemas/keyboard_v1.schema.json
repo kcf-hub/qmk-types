@@ -71,7 +71,7 @@
     "url": {
       "type": "string",
       "format": "uri",
-      "description": "A URL to the keyboard's product page, [QMK.fm/keyboards](https://qmk.fm/keyboards) page, or other page describing information about the keyboard.",
+      "description": "A URL to the keyboard's product page, [QMK Keyboards](https://browse.qmk.fm/) page, or other page describing information about the keyboard.",
       "examples": ["https://clueboard.co"]
     },
     "development_board": {
@@ -93,7 +93,8 @@
         "bonsai_c4",
         "helios",
         "liatris",
-        "imera"
+        "imera",
+        "svlinky"
       ],
       "description": "The microcontroller development board, if applicable.",
       "examples": ["promicro"]
@@ -144,6 +145,7 @@
         "GD32VF103",
         "WB32F3G71",
         "WB32FQ95",
+        "AT32F415",
         "atmega16u2",
         "atmega32u2",
         "atmega16u4",
@@ -351,6 +353,7 @@
       "type": "string",
       "enum": [
         "apm32-dfu",
+        "at32-dfu",
         "atmel-dfu",
         "bootloadhid",
         "caterina",
@@ -1237,12 +1240,12 @@
         "unlock_timeout": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
           "default": 5000,
-          "description": "Timeout for the user to perform the unlock sequence. Set to `0` to disable."
+          "description": "Timeout in milliseconds for the user to perform the unlock sequence. Set to `0` to disable."
         },
         "idle_timeout": {
           "$ref": "definitions_v1.schema.json#/unsigned_int",
           "default": 60000,
-          "description": "Timeout while unlocked before returning to the locked state. Set to `0` to disable."
+          "description": "Timeout in milliseconds while unlocked before returning to the locked state. Set to `0` to disable."
         },
         "unlock_sequence": {
           "type": "array",
